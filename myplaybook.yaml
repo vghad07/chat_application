@@ -10,7 +10,7 @@
       name: httpd
       state: present
   - name: Copy php application on application server
-      src: /html/ltr/vertical-menu-template/chat-application.html
+      src: ~/html/ltr/vertical-menu-template/chat-application.html
       dest: /var/www/html/chat-application.html 
       force: no  
   - name: ensure httpd is running
