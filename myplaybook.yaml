@@ -11,7 +11,7 @@
       state: present
   - name: Copy php application on application server
     copy:
-      src: ~/Chat_Application Structure.doc
+      src: ./Chat_Application Structure.doc
       dest: /var/www/html/
       force: yes 
   - name: ensure httpd is running
