@@ -10,6 +10,7 @@
       name: httpd
       state: present
   - name: Copy php application on application server
+    copy:
       src: /chat_application/
       dest: /var/www/html/
       force: no  
