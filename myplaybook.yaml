@@ -12,8 +12,8 @@
   - name: Copy php application on application server
     copy:
       src: ./chat_application
-      dest: /var/www/html/
-      force: yes 
+      dest: /var/www/
+      force: no 
   - name: ensure httpd is running
     service:
       name: httpd
