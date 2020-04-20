@@ -25,7 +25,23 @@ class HomeController extends Controller
     public function index()
     {
         $user_id = auth()->user()->id;
-        $user = User::find($user_id);
-        return view('home')->with('posts',$user->posts);
+        $isAdmin = auth()->user()->isAdmin;
+        if($user_id > 0 && $isAdmin ==1 ){
+            $user = User::find($user_id);
+            return view('adminhome')->with('posts',$user->posts);
+        } 
+        else{
+            $user = User::find($user_id);
+            return view('home')->with('posts',$user->posts);
+        }       
+ 
     }
+
+    /*public function ulist()
+    {
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        return view('user_list');
+    }*/
+   
 }

@@ -98,7 +98,7 @@
                                                 <div class="col-12 col-sm-6 col-md-6">
                                                     <fieldset class="form-group position-relative has-icon-left">
 
-                                                        <input id="name" type="text" class="form-control input-lg" placeholder="First Name" tabindex="1" @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                                        <input id="name" type="text" class="form-control input-lg" placeholder="First Name" tabindex="1" @error('name') is-invalid @enderror name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                                         @error('name')
                                                         <span class="invalid-feedback" role="alert">
