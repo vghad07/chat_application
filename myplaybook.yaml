@@ -6,8 +6,8 @@
   become_method: sudo
   tasks:
   - name: Install apache packages
-    yum:
-      name: httpd
+    apt:
+      name: apache2
       state: present
   - name: Copy php application on application server
     copy:
