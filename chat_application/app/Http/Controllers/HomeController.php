@@ -15,6 +15,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        //$this->middleware(['auth', 'verified']);
     }
 
     /**
@@ -26,24 +27,30 @@ class HomeController extends Controller
     {
         $user_id = auth()->user()->id;
         $isAdmin = auth()->user()->isAdmin;
+        $isActive = auth()->user()->isActive;
         $name = auth()->user()->name;
-
-        $request->session()->put(['user_id'=>$user_id,'is_admin'=>$isAdmin,'name'=>$name]);
+    
+        $request->session()->put(['user_id'=>$user_id,'is_admin'=>$isAdmin,'is_active'=>$isActive,'name'=>$name]);
         
-        if($request->session()->has('user_id') && $request->session()->has('is_admin')){
+       
+       
+               
             //$user = User::find($user_id);
-            if($request->session()->has('user_id') > 0 && $request->session()->has('is_admin')==1){
+            if($request->session()->get('is_active')== 1  && $request->session()->get('is_admin')==0){        
+                //  $user = User::find($user_id);
+                  return view('home');
+              }
+            if($request->session()->get('is_admin')==1 && $request->session()->get('is_active')==1){
                 return view('adminhome');
             }
-            if($request->session()->has('user_id') > 0 && $request->session()->has('is_admin')==0){        
-              //  $user = User::find($user_id);
-                return view('home');
-            }      
+                  
             else{
-                view('login');
+                $request->session()->forget(['user_id','is_admin','is_active','name']);
+                $request->session()->flush();
+                return redirect('/');
             }
            
-        } 
+      
          
  
     }

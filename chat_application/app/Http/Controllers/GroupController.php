@@ -23,6 +23,9 @@ class GroupController extends Controller
     {
         //
         $groups = DB::select('SELECT * FROM tbl_groups');
+        foreach($groups as $g){
+            $g->gImage   =  Storage::url($g->gImage);
+        }
         return view('group_list')->with('groups',$groups);
     }
 
@@ -66,7 +69,7 @@ class GroupController extends Controller
                $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
                $extension = $request->file('gimage')->getClientOriginalExtension();
                $fileNameToStore = $filename.'_'.time().'.'.$extension;
-               $path = $request->file('gimage')->storeAs('public/cover_images',$fileNameToStore);
+               $path = $request->file('gimage')->storeAs('',$fileNameToStore);
            }
            else {
                $fileNameToStore = 'noimage.jpg';
@@ -106,6 +109,10 @@ class GroupController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $groups = DB::select('SELECT * FROM tbl_groups');
+        foreach($groups as $g){
+            $g->gImage   =  Storage::url($g->gImage);
+        }
+        
         return view('group_list')->with('groups',$groups);
     }
 
@@ -145,7 +152,7 @@ class GroupController extends Controller
                $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
                $extension = $request->file('gimage')->getClientOriginalExtension();
                $fileNameToStore = $filename.'_'.time().'.'.$extension;
-               $path = $request->file('gimage')->storeAs('public/cover_images',$fileNameToStore);
+               $path = $request->file('gimage')->storeAs('',$fileNameToStore);
            }
           
    

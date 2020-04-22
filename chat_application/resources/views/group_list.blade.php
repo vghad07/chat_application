@@ -75,7 +75,7 @@
                                              </td>
                                              <td class="text-center">
 
-                                                 <img style="width:25%" src="{{ asset('assets/cover_images')}}/{{$group->gImage}}" alt="Group Image">
+                                                 <img style="width:25%" src="{{$group->gImage}}" alt="Group Image">
 
                                              </td>
 

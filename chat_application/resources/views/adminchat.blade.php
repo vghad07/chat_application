@@ -1,6 +1,6 @@
 
 
- @extends('layouts.admin_chatlayout')
+@extends('layouts.admin_chatlayout')
 
 @section('content')
 
