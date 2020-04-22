@@ -9,6 +9,7 @@
     <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template.">
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Demo Project</title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="https://pixinvent.com/bootstrap-admin-template/robust/app-assets/images/ico/favicon.ico">
@@ -26,10 +27,10 @@
     <!-- BEGIN Page Level CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-gradient.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-gradient.min.css')}}">
+  
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/calendars/clndr.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/fonts/meteocons/style.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/chat-application.css')}}">
+    
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css')}}">
@@ -58,7 +59,7 @@
                             <li class="col-md-3"></li>
                             <li class="dropdown dropdown-user nav-item col-md-7 float-right"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                                     <span class="avatar avatar-online"><img src="{{ asset('app-assets/images/portrait/small/avatar-s-1.png')}}" alt="avatar"><i></i></span>
-                                    <span class="user-name">Admin</span></a>
+                                    <span class="user-name"> {{session('name')}}</span></a>
                                 <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a>
 
                                     <a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
@@ -119,10 +120,11 @@
         <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2018 <a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">PIXINVENT </a>, All rights reserved. </span><span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">Hand-crafted & Made with <i class="ft-heart pink"></i></span></p>
     </footer>
 
-    <!-- BEGIN VENDOR JS-->
+    
+     
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js')}}"></script>
-    <!-- BEGIN VENDOR JS-->
-    <!-- BEGIN PAGE VENDOR JS-->
+    
+     
     <script src="{{ asset('app-assets/vendors/js/charts/raphael-min.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/charts/morris.min.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/charts/chart.min.js')}}"></script>
@@ -133,6 +135,7 @@
     <script src="{{ asset('app-assets/vendors/js/extensions/clndr.min.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/charts/echarts/echarts.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/extensions/unslider-min.js')}}"></script>
+
     <!-- END PAGE VENDOR JS-->
     <!-- BEGIN ROBUST JS-->
     <script src="{{ asset('app-assets/js/core/app-menu.min.js')}}"></script>
@@ -142,6 +145,7 @@
     <!-- BEGIN PAGE LEVEL JS-->
     <script src="{{ asset('app-assets/js/scripts/pages/dashboard-ecommerce.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/scripts/pages/chat-application.js')}}"></script>
+
     <!-- END PAGE LEVEL JS-->
 </body>
 

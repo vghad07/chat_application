@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Chat;
 use DB;
 class ChatController extends Controller
 {
@@ -17,18 +18,16 @@ class ChatController extends Controller
     public function index(){
         $user_id = auth()->user()->id;
         $isAdmin = auth()->user()->isAdmin;
-        $users = DB::select('SELECT * FROM users');
+         $uid = session()->get('user_id');
+        $users = DB::select('SELECT * FROM users where id!='.$uid);
         
         if($user_id > 0 && $isAdmin ==1 ){
-            $user = User::find($user_id);
-            $users = DB::table('users')
-            ->leftJoin('tbl_chat', 'users.id', '=', 'tbl_chat.senderId')
-            ->get();
+                       
             return view('adminchat')->with('users',$users);
         } 
         else{
-            $user = User::find($user_id);
-            return view('userchat')->with('users',$users);;
+            
+            return view('userchat')->with('users',$users);
         }     
            
     }
@@ -46,7 +45,7 @@ class ChatController extends Controller
         }     
            
     }
-    public function insert(){
+    public function insert(Request $request){
      
         $this->validate($request,[            
             'cimage' =>'image|nullable|max:1999'
@@ -65,10 +64,11 @@ class ChatController extends Controller
                $fileNameToStore = 'noimage.jpg';
            }
            $chat = new Chat;
+           $chat->senderId = $request->input('chat_sen_id');
+           $chat->receiverId = $request->input('chat_rec_id');
            $chat->message = $request->input('message');
-           $chat->senderId = $request->input('senderid');
-           $chat->receiverId = $request->input('receiverid');
-           $chat->gImage = $fileNameToStore;           
+           
+           $chat->chatImage = $fileNameToStore;           
            $chat->createdDate = date('Y-m-d');
            $chat->modifiedDate = now();
                     
@@ -83,6 +83,9 @@ class ChatController extends Controller
                return redirect('/chat/index');
            }
 
+           
+
     }
+   
 
 }
