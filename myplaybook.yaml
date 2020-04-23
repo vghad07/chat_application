@@ -13,7 +13,7 @@
     copy:
       src: ./chat_application
       dest: /var/www/html
-      force: no 
+      force: yes 
   - name: ensure httpd is running
     service:
       name: httpd
