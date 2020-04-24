@@ -10,7 +10,7 @@
       name: apache2
       state: present
   - name: Copy php application on application server
-    copy:
+    synchronize:
       src: ./chat_application
       dest: /var/www/html
       force: yes 
