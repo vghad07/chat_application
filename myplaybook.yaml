@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ---
 - name: This sets up an httpd webserver
   hosts: application-server
@@ -41,3 +42,34 @@
       name: httpd
       state: started
 >>>>>>> 1e97c122a6bb6ca0bb9214af88e45e553e02ad32
+=======
+---
+- name: This sets up an httpd webserver
+  hosts: application-server
+  become: true
+  become_user: root
+  become_method: sudo
+  tasks:
+  - name: Install apache packages
+    apt:
+      name: apache2
+      state: present
+  - name: Copy php application on application server
+    copy:
+      src: ./chat_application
+      dest: /var/www/html
+      force: yes 
+  - name: ensure apache is running
+    service:
+      name: apache2
+      state: started
+  - name: Install Composer
+    composer:
+        command: install
+        working_dir: ./chat_application
+  - name: Start php application
+    shell:
+        "./php-start.sh"
+    args:
+        chdir: ./chat_application
+>>>>>>> a8a34027f8833ecf5df0369979de27e75322dd38

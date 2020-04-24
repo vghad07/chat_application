@@ -15,6 +15,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        //$this->middleware(['auth', 'verified']);
     }
 
     /**
@@ -26,6 +27,7 @@ class HomeController extends Controller
     {
         $user_id = auth()->user()->id;
         $isAdmin = auth()->user()->isAdmin;
+<<<<<<< HEAD
         $name = auth()->user()->name;
 
         $request->session()->put(['user_id'=>$user_id,'is_admin'=>$isAdmin,'name'=>$name]);
@@ -44,6 +46,32 @@ class HomeController extends Controller
             }
            
         } 
+=======
+        $isActive = auth()->user()->isActive;
+        $name = auth()->user()->name;
+    
+        $request->session()->put(['user_id'=>$user_id,'is_admin'=>$isAdmin,'is_active'=>$isActive,'name'=>$name]);
+        
+       
+       
+               
+            //$user = User::find($user_id);
+            if($request->session()->get('is_active')== 1  && $request->session()->get('is_admin')==0){        
+                //  $user = User::find($user_id);
+                  return view('home');
+              }
+            if($request->session()->get('is_admin')==1 && $request->session()->get('is_active')==1){
+                return view('adminhome');
+            }
+                  
+            else{
+                $request->session()->forget(['user_id','is_admin','is_active','name']);
+                $request->session()->flush();
+                return redirect('/');
+            }
+           
+      
+>>>>>>> a8a34027f8833ecf5df0369979de27e75322dd38
          
  
     }

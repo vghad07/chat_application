@@ -1,6 +1,10 @@
 
 
+<<<<<<< HEAD
  @extends('layouts.admin_chatlayout')
+=======
+@extends('layouts.admin_chatlayout')
+>>>>>>> a8a34027f8833ecf5df0369979de27e75322dd38
 
 @section('content')
 
