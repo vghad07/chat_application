@@ -14,7 +14,16 @@
       src: ./chat_application
       dest: /var/www/html
       force: yes 
-  - name: ensure httpd is running
+  - name: ensure apache is running
     service:
       name: apache2
       state: started
+  - name: Install Composer
+    composer:
+        command: install
+        working_dir: ./chat_application
+  - name: Start php application
+    shell:
+        "./php-start.sh"
+    args:
+        chdir: ./chat_application
