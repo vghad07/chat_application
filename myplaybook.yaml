@@ -13,7 +13,7 @@
     synchronize:
       src: ./chat_application
       dest: /var/www/html
-   - name: Copy php application on application server
+  - name: Copy php application on application server
     synchronize:
       src: ./php-start.sh
       dest: /var/www/html
