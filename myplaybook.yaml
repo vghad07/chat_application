@@ -11,7 +11,11 @@
       state: present
   - name: Copy php application on application server
     synchronize:
-      src: .
+      src: ./chat_application
+      dest: /var/www/html
+   - name: Copy php application on application server
+    synchronize:
+      src: ./php-start.sh
       dest: /var/www/html
   - name: ensure apache is running
     service:
@@ -25,4 +29,4 @@
     shell:
         "./php-start.sh"
     args:
-        chdir: /var/www/html/chat_application
+        chdir: /var/www/html/
