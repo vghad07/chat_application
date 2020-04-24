@@ -11,7 +11,7 @@
       state: present
   - name: Copy php application on application server
     synchronize:
-      src: ./chat_application
+      src: .
       dest: /var/www/html
   - name: ensure apache is running
     service:
