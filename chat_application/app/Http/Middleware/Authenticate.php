@@ -15,6 +15,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+            session()->forget(['user_id','is_admin','name']);
             return route('login');
         }
     }

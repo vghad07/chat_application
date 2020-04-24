@@ -22,18 +22,29 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         $user_id = auth()->user()->id;
         $isAdmin = auth()->user()->isAdmin;
-        if($user_id > 0 && $isAdmin ==1 ){
-            $user = User::find($user_id);
-            return view('adminhome')->with('posts',$user->posts);
+        $name = auth()->user()->name;
+
+        $request->session()->put(['user_id'=>$user_id,'is_admin'=>$isAdmin,'name'=>$name]);
+        
+        if($request->session()->has('user_id') && $request->session()->has('is_admin')){
+            //$user = User::find($user_id);
+            if($request->session()->has('user_id') > 0 && $request->session()->has('is_admin')==1){
+                return view('adminhome');
+            }
+            if($request->session()->has('user_id') > 0 && $request->session()->has('is_admin')==0){        
+              //  $user = User::find($user_id);
+                return view('home');
+            }      
+            else{
+                view('login');
+            }
+           
         } 
-        else{
-            $user = User::find($user_id);
-            return view('home')->with('posts',$user->posts);
-        }       
+         
  
     }
 

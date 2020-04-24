@@ -52,3 +52,5 @@ Route::get('/group/group_list/delete/{id}', 'GroupController@destroy');
 Route::get('/chat/index', 'ChatController@index');
 Route::post('/chat/index', 'ChatController@insert');
 Route::get('/chat/group', 'ChatController@group');
+Route::get('/ajax/ajaxRequest', 'AjaxController@ajaxRequest');
+Route::post('/ajax/ajaxRequest', 'AjaxController@ajaxRequestPost')->name('ajaxRequest.post');

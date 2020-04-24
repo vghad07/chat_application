@@ -11,10 +11,10 @@ class PagesController extends Controller
     public function index() {
         $title = "Welcome to the index page of Laravel";
       //  return view('pages.index',compact('title'));
-          return view('pages.index')->with('title',$title);
+          return view('auth.login');
     }
 
-    public function about() {
+   /* public function about() {
         $title = "Welcome to about us page of Laravel project";
         return view('pages.about')->with('title',$title);
     }
@@ -25,7 +25,7 @@ class PagesController extends Controller
             'services'=>['Web designing','Programming','Testing']
         );
         return view('pages.services')->with($data);
-    }
+    }*/
 }
 
    

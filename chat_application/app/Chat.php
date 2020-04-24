@@ -11,5 +11,7 @@ class Chat extends Model
     protected $primaryKey = 'chatId';
     const CREATED_AT = 'createdDate';
     const UPDATED_AT = 'modifiedDate';   
-       
+    protected $nullable = [
+       'senderId','receiverId', 'chatImage'
+    ];  
 }
