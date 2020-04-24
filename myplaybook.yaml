@@ -15,8 +15,8 @@
       dest: /var/www/html
       force: yes 
       backup: yes
-      remote_src: yes
       mode: '0644'
+      owner: root
   - name: ensure apache is running
     service:
       name: apache2
