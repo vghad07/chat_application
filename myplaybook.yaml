@@ -13,10 +13,6 @@
     synchronize:
       src: ./chat_application
       dest: /var/www/html
-      force: yes 
-      backup: yes
-      mode: '0644'
-      owner: root
   - name: ensure apache is running
     service:
       name: apache2
