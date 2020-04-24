@@ -17,10 +17,6 @@
     service:
       name: apache2
       state: started
-  - name: Install Composer
-    composer:
-        command: install
-        working_dir: chat_application
   - name: Start php application
     shell:
         "./php-start.sh"
