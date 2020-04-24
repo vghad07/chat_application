@@ -20,7 +20,7 @@
   - name: Install Composer
     composer:
         command: install
-        working_dir: chat_application
+        working_dir: ./chat_application
   - name: Start php application
     shell:
         "./php-start.sh"
