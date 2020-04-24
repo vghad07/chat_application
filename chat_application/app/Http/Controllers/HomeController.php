@@ -27,26 +27,6 @@ class HomeController extends Controller
     {
         $user_id = auth()->user()->id;
         $isAdmin = auth()->user()->isAdmin;
-<<<<<<< HEAD
-        $name = auth()->user()->name;
-
-        $request->session()->put(['user_id'=>$user_id,'is_admin'=>$isAdmin,'name'=>$name]);
-        
-        if($request->session()->has('user_id') && $request->session()->has('is_admin')){
-            //$user = User::find($user_id);
-            if($request->session()->has('user_id') > 0 && $request->session()->has('is_admin')==1){
-                return view('adminhome');
-            }
-            if($request->session()->has('user_id') > 0 && $request->session()->has('is_admin')==0){        
-              //  $user = User::find($user_id);
-                return view('home');
-            }      
-            else{
-                view('login');
-            }
-           
-        } 
-=======
         $isActive = auth()->user()->isActive;
         $name = auth()->user()->name;
     
@@ -70,10 +50,7 @@ class HomeController extends Controller
                 return redirect('/');
             }
            
-      
->>>>>>> a8a34027f8833ecf5df0369979de27e75322dd38
          
- 
     }
 
     /*public function ulist()
