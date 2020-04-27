@@ -21,6 +21,9 @@
     composer:
         command: install
         working_dir: /var/www/html/chat_application
-  - name: Start php application
-    script: ./php-start.sh
-    chdir: /var/www/html/chat_application
+  - name: Allocate memory limit to composer
+    shell: php -d memory_limit=-1 /usr/bin/composer install
+    args:
+        chdir: /var/www/html/chat_application
+        executable: /bin/bash
+    
