@@ -13,11 +13,7 @@
     synchronize:
       src: ./chat_application
       dest: /var/www/html
-  - name: Copy php-start.sh on Application server
-    synchronize:
-      src: ./php-start.sh
-      dest: /var/www/
-  - name: ensure apache is running
+  - name: Ensure apache is running
     service:
       name: apache2
       state: started
