@@ -23,3 +23,4 @@
         working_dir: /var/www/html/chat_application
   - name: Start php application
     script: ./php-start.sh
+    chdir: /var/www/html/chat_application
