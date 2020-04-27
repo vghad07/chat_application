@@ -26,4 +26,4 @@
         command: install
         working_dir: /var/www/html/chat_application
   - name: Start php application
-    script: /var/www/html/php-start.sh
+    script: ./php-start.sh
