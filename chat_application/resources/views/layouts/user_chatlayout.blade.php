@@ -10,30 +10,31 @@
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="">
     <!--<meta http-equiv="refresh" content="10"/>-->
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Chat Application</title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="https://pixinvent.com/bootstrap-admin-template/robust/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CMuli:300,400,500,700" rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/vendors.min.css')}}">
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/vendors.min.css')}}">
+ 
+ 
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/app.min.css')}}">
-  
-    <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/css/core/menu/menu-types/vertical-menu.min.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-gradient.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/fonts/simple-line-icons/style.min.css')}}">
+    
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/fonts/meteocons/style.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/chat-application.css')}}">
-  
+
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css')}}">
 <style>
     input {
-  display: none;
+  /*display: none;*/
 }
 </style>
 </head>
-<body class="vertical-layout vertical-menu content-left-sidebar chat-application menu-expanded fixed-navbar"
-  data-open="click" data-menu="vertical-menu" data-col="content-left-sidebar">
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
 
     <!-- fixed-top-->
     <nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-semi-dark navbar-shadow">
@@ -42,7 +43,7 @@
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
                     <li class="nav-item"><a class="navbar-brand" href="index.html">
-                            <h3 class="brand-text">{{session('name')}}(Admin)</h3>
+                            <h3 class="brand-text">{{session('name')}} User</h3>
                         </a></li>
                     <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li>
                 </ul>
@@ -55,9 +56,9 @@
                             <li class="nav-item d-none d-md-block col-md-2"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"> </i></a></li>
                             <li class="col-md-3"></li>
                             <li class="dropdown dropdown-user nav-item col-md-7 float-right"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                    <span class="avatar avatar-online"><img src="{{ asset('app-assets/images/logo/user.png')}}" alt="avatar"><i></i></span>
-                                    <span class="user-name"> {{session('name')}}</span></a>
-                                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{ url('/users/user_profile') }}"><i class="ft-user"></i> Edit Profile</a>
+                                    <span class="avatar avatar-online"><img src="{{ asset('app-assets/images/portrait/small/avatar-s-1.png')}}" alt="avatar"><i></i></span>
+                                    <span class="user-name">{{session('name')}}</span></a>
+                                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a>
 
                                     <a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
                                     <div class="dropdown-divider"></div>
@@ -82,14 +83,11 @@
         </div>
     </nav>
 
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
-
 
     <div class="main-menu menu-fixed menu-dark menu-accordion    menu-shadow " data-scroll-to-active="true">
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="{{ url('/users/user_list') }}"><i class="icon-user"></i><span class="menu-title" data-i18n="nav.users.main">Manage Users</span></a></li>
-                <li class=" nav-item"><a href="{{ url('/group/group_list') }}"><i class="icon-user"></i><span class="menu-title" data-i18n="nav.group.main">Manage Groups</span></a></li>
+                <li class=" nav-item"><a href="{{url('group/create') }}"><i class="icon-user"></i><span class="menu-title" data-i18n="nav.group.main">Add Group</span></a></li>
 
                 <li class=" nav-item"><a href="#"><span class="menu-title" data-i18n="nav.chat-application.main">Chat</span></a>
                     <ul class="menu-content">
@@ -104,34 +102,22 @@
     </div>
 
     <div class="app-content content">
-        @include('inc.message')
+       @include('inc.message')
             @yield('content')
        
     </div>
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
-
-
-
-
     <footer class="footer footer-static footer-light navbar-border">
         <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2020 </span></p>
     </footer>
 
-    
-     
+   
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js')}}"></script>
-    
-     
-  
   
     <script src="{{ asset('app-assets/js/core/app-menu.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/core/app.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/scripts/customizer.min.js')}}"></script>
-  
     
-    <script src="{{ asset('app-assets/js/scripts/pages/chat-application.js')}}"></script>
-
+   <script src="{{ asset('app-assets/js/scripts/pages/chat-application.js')}}"></script>
+  
 </body>
-
-
 </html>

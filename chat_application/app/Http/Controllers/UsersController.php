@@ -21,7 +21,7 @@ class UsersController extends Controller
     }
     public function index()
     {
-        //
+        
         $users = DB::select('SELECT * FROM users');
         return view('user_list')->with('users',$users);
     }
@@ -94,7 +94,10 @@ class UsersController extends Controller
         $user = User::find($id);       
         return view('edituser')->with('user',$user);
     }
-
+    public function userProfile(Request $request)
+    {
+        return view('users_profile');
+    }
     public function update(Request $request, $id)
     {
         //
@@ -109,6 +112,35 @@ class UsersController extends Controller
    
            return redirect('/users/user_list')->with('success','User Updated Successfully');;
     }
+    
+    public function editProfile(Request $request)
+    {
+          $this->validate($request,[
+           'uimage' =>'image|nullable|max:1999'
+           ]);
+           $id = $request->input('uid');
+           $user = User::find($id);          
+           $user->name = $request->input('name');          
+          
+            if($request->hasFile('uimage')){
+               
+                 $filenameWithExt = $request->file('uimage')->getClientOriginalName();
+   
+               $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
+               $extension = $request->file('uimage')->getClientOriginalExtension();
+               $fileNameToStore = $filename.'_'.time().'.'.$extension;
+               $path = $request->file('uimage')->move(public_path('images'),$fileNameToStore);
+           }  
+            $user->uImage =  $fileNameToStore;
+           if($request->input('password')!=""){
+            $user->password =  Hash::make($request->input('password'));
+           }       
+          
+           $user->save();
+   
+           return redirect('/users/user_profile')->with('success','User Profile Updated Successfully');
+    
+        }
 
     /**
      * Remove the specified resource from storage.
@@ -129,7 +161,8 @@ class UsersController extends Controller
     {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        $users = DB::select('SELECT * FROM users');
+        $users = DB::table('users')->paginate(2);
+       // $users = DB::select('SELECT * FROM users');
         return view('user_list')->with('users',$users);
     }
 }

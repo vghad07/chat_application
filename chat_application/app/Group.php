@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use DB;
 class Group extends Model
 {
     //
@@ -12,5 +12,7 @@ class Group extends Model
     const CREATED_AT = 'createdDate';
     const UPDATED_AT = 'modifiedDate';
     const ID = 'gId';
+
+    
        
 }

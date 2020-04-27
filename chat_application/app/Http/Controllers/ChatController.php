@@ -23,7 +23,7 @@ class ChatController extends Controller
         
         if($user_id > 0 && $isAdmin ==1 ){
                        
-            return view('adminchat')->with('users',$users);
+            return view('adminchat')->with('users',$users)->with('chat_s','')->with('chat_r','');
         } 
         else{
             
@@ -77,11 +77,12 @@ class ChatController extends Controller
            $isAdmin = auth()->user()->isAdmin;
            if($user_id > 0 && $isAdmin ==1 ){
               
-               return redirect('/chat/index');
+             //  return redirect('/chat/index');
+               return response()->json(['success'=>'Success Message Added success Request.']);
            }
-           else{
+          /* else{
                return redirect('/chat/index');
-           }
+           }*/
 
            
 

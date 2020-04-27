@@ -10,6 +10,7 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Group' => $baseDir . '/app/Group.php',
+    'App\\Group_users' => $baseDir . '/app/Group_users.php',
     'App\\Http\\Controllers\\AjaxController' => $baseDir . '/app/Http/Controllers/AjaxController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
     'App\\Http\\Controllers\\Auth\\CreateuserController' => $baseDir . '/app/Http/Controllers/CreateuserController.php',

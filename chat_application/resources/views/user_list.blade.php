@@ -70,7 +70,7 @@
                                                  </div>
                                              </td>
                                              <td class="text-center">
-                                                 <a href="mailto:{{$user->email}}">{{$user->email}}</a>
+                                                 <a href="#">{{$user->email}}</a>
                                              </td>
 
 
@@ -100,6 +100,7 @@
                                          </tr>
                                      </tfoot>
                                  </table>
+                                 {{$users->links()}}
                              </div>
                          </div>
                      </div>
