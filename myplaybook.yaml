@@ -28,7 +28,8 @@
         executable: /bin/bash
         warn: no
   - name: php application running on port - localhost:8080
-    shell: php artisan serve --host:0.0.0.0 --port=8080
+    shell: 
+    command: php artisan serve --host:0.0.0.0 --port=8080
     args:
         chdir: /var/www/html/chat_application
         executable: /bin/bash
