@@ -27,9 +27,14 @@
         chdir: /var/www/html/chat_application
         executable: /bin/bash
         warn: no
+  - name: Make php site in live mode
+    command: php /var/www/html/chat_application/artisan up
+    args:
+        chdir: /var/www/html/chat_application
+        executable: /bin/bash
+        warn: no
   - name: php application running on port - localhost:8080
-    shell: 
-        cmd: php artisan serve --host:0.0.0.0 --port=8080
+    shell: php /var/www/html/chat_application/artisan serve --host:0.0.0.0 --port=8080
     args:
         chdir: /var/www/html/chat_application
         executable: /bin/bash
