@@ -50,9 +50,7 @@ class HomeController extends Controller
                 return redirect('/');
             }
            
-      
          
- 
     }
 
     /*public function ulist()
