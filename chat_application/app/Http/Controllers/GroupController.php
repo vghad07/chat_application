@@ -182,16 +182,18 @@ class GroupController extends Controller
    
         return redirect('/group/group_list')->with('success','Group Deleted successfully');
     }
-    public function userGroup(){
+    public function userGroup(Request $request){
         $users = DB::select('SELECT * FROM users');
          $groups = DB::select('SELECT * FROM tbl_groups');
        
-        return view('usergroup')->with('users',$users)->with('groups',$groups);
+            if($request->session()->get('is_admin')==1 && $request->session()->get('is_active')==1){
+                return view('usergroup')->with('users',$users)->with('groups',$groups);
+            }
     }
     public function adduserGroup(Request $request){
         $users = DB::select('SELECT * FROM users');
          $groups = DB::select('SELECT * FROM tbl_groups');
-        
+        if($request->session()->get('is_admin')==1 && $request->session()->get('is_active')==1){
          $gus = new Group_users;         
           $uids = $request->uid;
           $gid = $request->input('gid');
@@ -215,4 +217,6 @@ class GroupController extends Controller
         
        return view('usergroup')->with('users',$users)->with('groups',$groups);
     }
+  }
+  
 }

@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css')}}">
 <style>
     input {
-  /*display: none;*/
+  display: none;
 }
 </style>
 </head>
@@ -60,7 +60,7 @@
                                     <span class="user-name">{{session('name')}}</span></a>
                                 <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a>
 
-                                    <a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
+                                    <a class="dropdown-item" href="{{url('chat/index') }}"><i class="ft-message-square"></i> Chats</a>
                                     <div class="dropdown-divider"></div>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

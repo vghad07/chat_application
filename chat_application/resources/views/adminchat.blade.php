@@ -1,5 +1,10 @@
+
+
 @extends('layouts.admin_chatlayout')
+
 @section('content')
+
+
         <div class="sidebar-left sidebar-fixed">
             <div class="sidebar">
                 <div class="sidebar-content card d-none d-lg-block">
@@ -10,7 +15,6 @@
                                <i class="ft-search"></i>
                            </div>
                        </fieldset>     
-
             </div>
             <div id="users-list" class="list-group position-relative">
                 <div class="users-list-padding media-list">

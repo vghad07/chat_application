@@ -1,7 +1,7 @@
  @extends('layouts.admin')
 
  @section('content')
- @include('inc.message')
+ 
  <div class="content-header row">
      <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
          <h3 class="content-header-title mb-0 d-inline-block">Manage Users</h3>

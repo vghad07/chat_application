@@ -165,4 +165,8 @@ class UsersController extends Controller
        // $users = DB::select('SELECT * FROM users');
         return view('user_list')->with('users',$users);
     }
+     public function getName($id){
+        $user = User::find($id);
+        return $user->name;
+    }
 }

@@ -58,7 +58,13 @@ Route::get('/group/group_list/delete/{id}', 'GroupController@destroy');
 Route::get('/chat/index', 'ChatController@index');
 Route::post('/chat/index', 'ChatController@insert');
 Route::get('/chat/group', 'ChatController@group');
+Route::post('/chat/group', 'ChatController@groupInsert');
 Route::get('/ajax/ajaxRequest', 'AjaxController@ajaxRequest');
 Route::post('/ajax/ajaxRequest', 'AjaxController@ajaxRequestPost')->name('ajaxRequest.post');
 Route::post('/ajax/ajaxRequests', 'AjaxController@ajaxRequestsPost')->name('ajaxRequests.insertpost');
 Route::post('/ajax/ajaxReq', 'AjaxController@ajaxReqgetUsers')->name('ajaxReq.getUsers');
+Route::get('/groupchat/groupchatRequest', 'GroupchatController@groupchatRequest');
+Route::post('/groupchat/groupchatinsert', 'GroupchatController@groupChatInsert');
+Route::post('/groupchat/groupchatRequest', 'GroupchatController@groupchatRequestPost')->name('groupChatRequest.post');
+Route::post('/groupchat/groupchatRequests', 'GroupchatController@groupchatRequestsinsertPost')->name('groupChatRequests.insertpost');
+

@@ -25,12 +25,9 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $user_id = auth()->user()->id;
-        $isAdmin = auth()->user()->isAdmin;
-        $isActive = auth()->user()->isActive;
-        $name = auth()->user()->name;
+       
     
-        $request->session()->put(['user_id'=>$user_id,'is_admin'=>$isAdmin,'is_active'=>$isActive,'name'=>$name]);
+        $request->session()->put(['user_id'=>auth()->user()->id,'is_admin'=> auth()->user()->isAdmin,'is_active'=>auth()->user()->isActive,'name'=>auth()->user()->name]);
         
        
        
@@ -50,7 +47,9 @@ class HomeController extends Controller
                 return redirect('/');
             }
            
+      
          
+ 
     }
 
     /*public function ulist()
