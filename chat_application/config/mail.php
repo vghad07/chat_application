@@ -40,7 +40,7 @@ return [
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('owais.khalilahmed@gmail.com'),
-            'password' => env('owais158'),
+            'password' => env('********'),
             'timeout' => null,
         ],
 

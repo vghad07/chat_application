@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+//use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\Group;
+use App\Group_users;
 use DB;
 class GroupController extends Controller
 {
@@ -22,10 +23,8 @@ class GroupController extends Controller
     public function index()
     {
         //
-        $groups = DB::select('SELECT * FROM tbl_groups');
-        foreach($groups as $g){
-            $g->gImage   =  Storage::url($g->gImage);
-        }
+        $groups = DB::table('tbl_groups')->paginate(5);
+       
         return view('group_list')->with('groups',$groups);
     }
 
@@ -69,7 +68,7 @@ class GroupController extends Controller
                $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
                $extension = $request->file('gimage')->getClientOriginalExtension();
                $fileNameToStore = $filename.'_'.time().'.'.$extension;
-               $path = $request->file('gimage')->storeAs('',$fileNameToStore);
+               $path = $request->file('gimage')->move(public_path('images'),$fileNameToStore);
            }
            else {
                $fileNameToStore = 'noimage.jpg';
@@ -109,9 +108,7 @@ class GroupController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $groups = DB::select('SELECT * FROM tbl_groups');
-        foreach($groups as $g){
-            $g->gImage   =  Storage::url($g->gImage);
-        }
+       
         
         return view('group_list')->with('groups',$groups);
     }
@@ -152,7 +149,7 @@ class GroupController extends Controller
                $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
                $extension = $request->file('gimage')->getClientOriginalExtension();
                $fileNameToStore = $filename.'_'.time().'.'.$extension;
-               $path = $request->file('gimage')->storeAs('',$fileNameToStore);
+               $path = $request->file('gimage')->move(public_path('images'),$fileNameToStore);
            }
           
    
@@ -179,10 +176,43 @@ class GroupController extends Controller
         $group = Group::find($id);     
 
         if($group->cover_image !='noimage.jpg'){
-            Storage::delete('public/assets/cover_images/'.$group->gImage);
+           // Storage::delete('public/assets/cover_images/'.$group->gImage);
         }
         $group->delete();   
    
         return redirect('/group/group_list')->with('success','Group Deleted successfully');
+    }
+    public function userGroup(){
+        $users = DB::select('SELECT * FROM users');
+         $groups = DB::select('SELECT * FROM tbl_groups');
+       
+        return view('usergroup')->with('users',$users)->with('groups',$groups);
+    }
+    public function adduserGroup(Request $request){
+        $users = DB::select('SELECT * FROM users');
+         $groups = DB::select('SELECT * FROM tbl_groups');
+        
+         $gus = new Group_users;         
+          $uids = $request->uid;
+          $gid = $request->input('gid');
+         
+          foreach($uids as $uid){
+             if($gus->isUserExists($uid, $gid)){
+                 break;
+             }
+             else{  
+            $group_users = new Group_users;
+
+           $group_users->gId = $request->input('gid');
+           $group_users->uId = $uid;               
+           $group_users->createdDate = date('Y-m-d');
+           $group_users->modifiedDate = now();
+           $group_users->isDelete = 0;
+           $group_users->isActive = 1;           
+           $group_users->save();
+             }
+    }
+        
+       return view('usergroup')->with('users',$users)->with('groups',$groups);
     }
 }

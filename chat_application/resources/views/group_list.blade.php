@@ -31,6 +31,7 @@
                              <div class="heading-elements">
 
                                  <a class="btn btn-primary btn-sm" href="{{url('group/create') }}"><i class="ft-plus white"></i> Add Group</a>
+                                  <a class="btn btn-primary btn-sm" href="{{url('group/usergroup') }}"><i class="ft-plus white"></i> Assign Group</a>
                                  <span class="dropdown">
                                      <button id="btnSearchDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-warning dropdown-toggle dropdown-menu-right btn-sm"><i class="ft-download-cloud white"></i></button>
                                      <span aria-labelledby="btnSearchDrop1" class="dropdown-menu mt-1 dropdown-menu-right">
@@ -75,7 +76,7 @@
                                              </td>
                                              <td class="text-center">
 
-                                                 <img style="width:25%" src="{{$group->gImage}}" alt="Group Image">
+                                                 <img style="width:50%" src="{{asset('images')}}/{{$group->gImage}}" alt="Group Image">
 
                                              </td>
 
@@ -103,6 +104,7 @@
                                          </tr>
                                      </tfoot>
                                  </table>
+                                 {{$groups->links()}}
                              </div>
                          </div>
                      </div>

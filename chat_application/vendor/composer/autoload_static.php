@@ -490,6 +490,7 @@ class ComposerStaticInit6b40e9c73530b4c38bde640946a58fce
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Group' => __DIR__ . '/../..' . '/app/Group.php',
+        'App\\Group_users' => __DIR__ . '/../..' . '/app/Group_users.php',
         'App\\Http\\Controllers\\AjaxController' => __DIR__ . '/../..' . '/app/Http/Controllers/AjaxController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\CreateuserController' => __DIR__ . '/../..' . '/app/Http/Controllers/CreateuserController.php',

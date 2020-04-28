@@ -1,0 +1,17 @@
+node{
+    stage('Merge Developer Branch with Master'){
+		sh 'git remote rm origin'
+		sh 'git remote add origin https://github.com/vghad07/chat_application.git'
+		sh 'git checkout developer'
+		sh 'git pull origin developer'
+		sh 'git checkout master'
+		sh 'git merge developer'
+		echo "Developer branch merged with Master"
+	}
+    stage('Checkout code from SCM'){
+        git branch: 'master', url: 'https://github.com/vghad07/chat_application.git'
+    }
+    stage('Install apache server on application server'){
+            sh 'ansible-playbook myplaybook.yaml'
+	}
+}

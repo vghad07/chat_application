@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template.">
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
-    <meta name="author" content="PIXINVENT">
+    <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Demo Project</title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png')}}">
@@ -45,7 +45,7 @@
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
                     <li class="nav-item"><a class="navbar-brand" href="index.html">
-                            <h3 class="brand-text">Admin</h3>
+                            <h3 class="brand-text">{{session('name')}}(Admin)</h3>
                         </a></li>
                     <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li>
                 </ul>
@@ -60,7 +60,7 @@
                             <li class="dropdown dropdown-user nav-item col-md-7 float-right"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                                     <span class="avatar avatar-online"><img src="{{ asset('app-assets/images/portrait/small/avatar-s-1.png')}}" alt="avatar"><i></i></span>
                                     <span class="user-name"> {{session('name')}}</span></a>
-                                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a>
+                                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{ url('/users/user_profile') }}"><i class="ft-user"></i> Edit Profile</a>
 
                                     <a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
                                     <div class="dropdown-divider"></div>
@@ -108,7 +108,8 @@
 
     <div class="app-content content">
         <div class="content-wrapper">
-            @yield('content')
+           @include('inc.message')
+             @yield('content')
         </div>
     </div>
     <!-- ////////////////////////////////////////////////////////////////////////////-->
@@ -117,7 +118,7 @@
 
 
     <footer class="footer footer-static footer-light navbar-border">
-        <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2018 <a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">PIXINVENT </a>, All rights reserved. </span><span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">Hand-crafted & Made with <i class="ft-heart pink"></i></span></p>
+        <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2020 </span></p>
     </footer>
 
     
