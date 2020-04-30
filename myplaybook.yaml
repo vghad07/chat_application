@@ -1,6 +1,6 @@
 ---
 - name: This sets up an httpd webserver
-  hosts: application-server
+  hosts: application_server
   become: true
   become_user: root
   become_method: sudo
