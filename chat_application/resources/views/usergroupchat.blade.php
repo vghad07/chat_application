@@ -17,17 +17,17 @@
             </div>
             <div id="users-list" class="list-group position-relative">
                 <div class="users-list-padding media-list">
-                    @if(count($groups)>0)
-                        @foreach($groups as $group)
+                    @if(count($grps)>0)
+                        @foreach($grps as $group)
                             <form>
                             @csrf
                                 <input type="hidden" name="sen_id" value="{{session('user_id')}}">
-                                <input type="hidden" name="rec_id" class="rec"  value="{{$group->gId}}">
+                                <input type="hidden" name="rec_id"   value="{{$group->gId}}">
                         
                                <a href="#" class=" media border-0 btn-submit" data-id="{{$group->gId}}">
 
                                 <div class="media-left pr-1">
-                                    <span class="avatar avatar-md avatar-online"><img class="media-object rounded-circle" src="{{asset('app-assets/images/logo/user.png')}}" alt="Generic placeholder image">
+                                    <span class="avatar avatar-md avatar-online"><img class="media-object rounded-circle" src="{{asset('images')}}/{{session('pic')}}" alt="Generic placeholder image">
                                         <i></i>
                                     </span>
                                 </div>
@@ -64,7 +64,7 @@
                             </div>
                         </section>
                         <section class="chat-app-form">
-                            {{ Form::open(['action' => ['GroupchatController@groupChatInsert'],'id'=>'gchatFrm','name'=>'gchatFrm','class'=>'chat-app-input d-flex','method'=>'POST','enctype'=>'multipart/form-data']) }}
+                            {{ Form::open(['action' => ['GroupchatController@groupChatInsert'],'id'=>'gchatFrm','name'=>'gchatFrm','class'=>' d-flex','method'=>'POST','enctype'=>'multipart/form-data']) }}
                              @csrf
                             <fieldset class="form-group position-relative has-icon-left col-10 m-0">
                                 <div class="form-control-position">
@@ -97,8 +97,8 @@
        $(document).ready(function(){
            setTimeout(function() {
           var chat_sen_id = $("input[name=chat_sen_id]").val();
-           var chat_rec_id = $("input[name=gid]").val();
-           LoadData(chat_rec_id,chat_sen_id);
+           var gid = $("input[name=gid]").val();
+           LoadData(gid,chat_sen_id);
             }, 1000);
        });
      
@@ -125,14 +125,14 @@
             , url: "{{route('groupChatRequests.insertpost')}}"
             , data: {
               chat_sen_id: chat_sen_id
-                , chat_rec_id: gid
+                , gid: gid
                 , message: message
                 // ,cimage: cimage
 
             }
             , success: function(data) {                
-                $("#chatFrm").trigger("reset");
-                LoadData(chat_rec_id,chat_sen_id);
+                $("#gchatFrm").trigger("reset");
+                LoadData(gid,chat_sen_id);
             }
         });
           return false;
@@ -178,13 +178,13 @@
             
            }
            else{  for(var i=0;i<data.gmsg.length;i++){
-                   if(data.gmsg[i].uId=={{session('user_id')}}){
-                   list += '<div class="chat" id="chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="{{asset('app-assets/images/logo/user.png')}}" style="height:25px;width:25px;" alt="avatar" /><span>{{session("name")}}</span></a></div><div class="chat-body"><div class="chat-content" id="chat_sen_msgs"><p class="chat_sen_msg">' + data.gmsg[i].chatMessage + '</p></div></div></div>';                
+                   if(data.gmsg[i].id==data.gmsg[i].uId){
+                   list += '<div class="chat" id="chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="{{asset('images')}}/{{session('pic')}}" style="height:25px;width:25px;" alt="avatar" /><span>'+data.gmsg[i].name+'</span></a></div><div class="chat-body"><div class="chat-content" id="chat_sen_msgs"><p class="chat_sen_msg">' + data.gmsg[i].chatMessage + '</p></div></div></div>';                
                   
                    }
                    else
                    {
-                   list += '<div class="chat chat-left" id="left_chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title=""><img src="{{asset('app-assets/images/logo/user2.png')}}" style="height:25px;width:25px; margin:2px" alt="avatar" /><span>{{session("name")}}</span></a></div><div class="chat-body"><div class="chat-content" id="chat_rec_msgs"><p class="chat_rec_msg">' + data.gmsg[i].chatMessage + '</p></div></div></div>';
+                   list += '<div class="chat chat-left" id="left_chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title=""><img src="{{asset('images/')}}/'+data.users[i].uImage+'" style="height:25px;width:25px; margin:2px" alt="avatar" /><span>'+data.users[i].name+'</span></a></div><div class="chat-body"><div class="chat-content" id="chat_rec_msgs"><p class="chat_rec_msg">' + data.gmsg[i].chatMessage + '</p></div></div></div>';
                   
                    }
              }

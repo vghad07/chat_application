@@ -20,27 +20,33 @@
                         @foreach($users as $user)
                             <form>
                             @csrf
-                                <input type="hidden" name="sen_id" value="{{session('user_id')}}">
-                                <input type="hidden" name="rec_id" class="rec"  value="{{$user->id}}">
+                                
                         
                                <a href="#" class=" media border-0 btn-submit" data-id="{{$user->id}}">
+                                   <div class="media-left pr-1">
+                                       <span class="avatar avatar-md avatar-busy">
+                                           <img class="media-object rounded-circle" src="{{asset('images')}}/{{$user->uImage}}" alt="Generic placeholder image">
+                                           <i></i>
+                                       </span>
+                                       <input type="text" name="sen_id" value="{{session('user_id')}}">
+                                <input type="text" name="rec_id"  value="{{$user->id}}">
+                                   </div>
+                                    <div class="media-body w-100">
+                                       <h6 class="list-group-item-heading">{{$user->name}}
+                                           <span class="font-small-3 float-right info">
+                                          
+                                           </span>
+                                        </h6>
+                                        <p class="list-group-item-text text-muted mb-0">
+                                        <i class="ft-check primary font-small-2">
 
-                                <div class="media-left pr-1">
-                                    <span class="avatar avatar-md avatar-online"><img class="media-object rounded-circle" src="{{asset('app-assets/images/logo/user.png')}}" alt="Generic placeholder image">
-                                        <i></i>
-                                    </span>
-                                </div>
-                                <div class="media-body w-100">
-                                    <h6 class="list-group-item-heading">{{$user->name}}
-                                    <span class="font-small-3 float-right info">
-                                         {{$last_msg ?? ''}}</span>
-                                    </h6>
-                                    <p class="list-group-item-text text-muted mb-0">
-                                        <i class="ft-check primary font-small-2"></i> {{$last_msg ?? ''}}
-                                        <span class="float-right primary"><i class="font-medium-1 icon-pin blue-grey lighten-3"></i></span>
-                                    </p>
-                                </div>
-                               </a>
+                                        </i> 
+                                            <span class="float-right primary">
+                                               <span class="badge badge-pill badge-danger"></span>
+                                            </span>
+                                        </p>
+                                   </div>
+                                </a>
                             </form>
                         @endforeach
                     @endif
@@ -172,7 +178,8 @@
             $('#chats_box').html(list);
             
            }
-           else{  for(var i=0;i<data.smsg.length;i++){
+           else{ 
+                for(var i=0;i<data.smsg.length;i++){
                    if(data.smsg[i].senderId=={{session('user_id')}}){
                    list += '<div class="chat" id="chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="{{asset('app-assets/images/logo/user.png')}}" style="height:25px;width:25px;" alt="avatar" /><span>Me</span></a></div><div class="chat-body"><div class="chat-content" id="chat_sen_msgs"><p class="chat_sen_msg">' + data.smsg[i].message + '</p></div></div></div>';                
                   

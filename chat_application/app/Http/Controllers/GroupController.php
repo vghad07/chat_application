@@ -23,7 +23,7 @@ class GroupController extends Controller
     public function index()
     {
         //
-        $groups = DB::table('tbl_groups')->paginate(5);
+        $groups = DB::table('tbl_groups')->paginate(10);
        
         return view('group_list')->with('groups',$groups);
     }

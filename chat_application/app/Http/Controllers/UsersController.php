@@ -96,7 +96,14 @@ class UsersController extends Controller
     }
     public function userProfile(Request $request)
     {
-        return view('users_profile');
+        if($request->session()->get('is_active')== 1  && $request->session()->get('is_admin')==0){        
+                //  $user = User::find($user_id);
+                  return view('user_profiles');
+              }
+            if($request->session()->get('is_admin')==1 && $request->session()->get('is_active')==1){
+                 return view('users_profile');
+            }
+       
     }
     public function update(Request $request, $id)
     {
@@ -119,8 +126,11 @@ class UsersController extends Controller
            'uimage' =>'image|nullable|max:1999'
            ]);
            $id = $request->input('uid');
-           $user = User::find($id);          
-           $user->name = $request->input('name');          
+           $user = User::find($id);
+           if(!empty($request->input('name'))){
+             $user->name =  $request->input('name');
+           }       
+                     
           
             if($request->hasFile('uimage')){
                
@@ -130,7 +140,10 @@ class UsersController extends Controller
                $extension = $request->file('uimage')->getClientOriginalExtension();
                $fileNameToStore = $filename.'_'.time().'.'.$extension;
                $path = $request->file('uimage')->move(public_path('images'),$fileNameToStore);
-           }  
+           } 
+           else{
+               $fileNameToStore = 'noimage.jpg';
+           } 
             $user->uImage =  $fileNameToStore;
            if($request->input('password')!=""){
             $user->password =  Hash::make($request->input('password'));
@@ -161,8 +174,8 @@ class UsersController extends Controller
     {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        $users = DB::table('users')->paginate(2);
-       // $users = DB::select('SELECT * FROM users');
+        $users = DB::table('users')->paginate(10);
+       // $users = DB::select('SELECT * FROM users where isActive=1');
         return view('user_list')->with('users',$users);
     }
      public function getName($id){

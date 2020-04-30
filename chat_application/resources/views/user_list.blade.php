@@ -63,7 +63,7 @@
                                              <td><input type="checkbox" class="input-chk"></td>
                                              <td>
                                                  <div class="media">
-                                                     <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle"><img src="{{ asset('app-assets/images/portrait/small/avatar-s-5.png')}}" alt="avatar"><i></i></span></div>
+                                                     <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle"><img src="{{ asset('images')}}/{{$user->uImage}}" alt="avatar"><i></i></span></div>
                                                      <div class="media-body media-middle">
                                                          <a href="#" class="media-heading">{{$user->name}}</a>
                                                      </div>

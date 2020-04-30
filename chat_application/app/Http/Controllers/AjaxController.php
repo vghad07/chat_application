@@ -12,11 +12,14 @@ class AjaxController extends Controller
     public function ajaxRequest()
     {
          if($request->session()->get('is_active')== 1  && $request->session()->get('is_admin')==0){        
-                //  $user = User::find($user_id);
-                  return view('userchat');
+                // 
+                $users = DB::select("SELECT users.*,tbl_chat.senderId,tbl_chat.receiverId,tbl_chat.message FROM users left join tbl_chat on (users.id = tbl_chat.senderId)   where users.isActive = 1 And users.id != ".$request->session()->get('user_id')." Group by users.id");
+                // $user = User::find($user_id);
+                  return view('userchat')->with('users',$users);
               }
             if($request->session()->get('is_admin')==1 && $request->session()->get('is_active')==1){
-                return view('adminchat');
+              $users = DB::select("SELECT users.*,tbl_chat.senderId,tbl_chat.receiverId,tbl_chat.message FROM users left join tbl_chat on (users.id = tbl_chat.senderId)   where users.isActive = 1 And users.id != ".$request->session()->get('user_id')." Group by users.id");
+                return view('adminchat')->with('users',$users);
             }
 
         
@@ -24,14 +27,14 @@ class AjaxController extends Controller
     public function ajaxRequestPost(Request $request)
     {
 
-   //   $sender =  $request->input('sen');
-      $receiver =   $request->input('rec');
-     $chat_s=[];
-     //   $chat_msg = DB::select("SELECT * FROM tbl_chat where receiverId=".$receiver." Or receiverId=".$request->session()->get('user_id'));
+       //$sender =  $request->input('sen');
+       $receiver =   $request->input('rec');
+       $chat_s=[];
+       //$chat_msg = DB::select("SELECT * FROM tbl_chat where receiverId=".$receiver." Or receiverId=".$request->session()->get('user_id'));
      //   if(count($chat_msg)>0){
           
        //$chat_s = DB::select("SELECT * FROM tbl_chat where senderId=".$request->session()->get('user_id')." AND receiverId=". $receiver);
-            $chat_s = DB::select("SELECT * FROM tbl_chat where (senderId=".$request->session()->get('user_id')." AND receiverId=". $receiver.") OR (senderId=". $receiver." AND receiverId=".$request->session()->get('user_id').")");
+            $chat_s = DB::select("SELECT * FROM tbl_chat where (senderId=".$request->session()->get('user_id')." AND receiverId=". $receiver.") OR (senderId=". $receiver." AND receiverId=".$request->session()->get('user_id').") Order By modifiedDate desc");
         //   }
      //   else{
             
@@ -44,7 +47,7 @@ class AjaxController extends Controller
       // $cnr = count($chat_r);
          if($cns >= 1){
           //return response()->json(['cnr'=>$cnr,'cns'=>$cns,'rid'=>$receiver,'smsg'=> $chat_s,'rmsg'=>$chat_r,'success'=>'Success Message Request.']);
-          return response()->json(['cns'=>$cns,'name'=>$user->name,'rid'=>$receiver,'smsg'=> $chat_s,'success'=>'Success Message Request.']);
+          return response()->json(['cns'=>$cns,'name'=>$user->name,'uimage'=>$user->uImage,'rid'=>$receiver,'smsg'=> $chat_s,'success'=>'Success Message Request.']);
          }
          else{
              $chat_s=[];
@@ -58,24 +61,21 @@ class AjaxController extends Controller
         $this->validate($request,[            
             'cimage' =>'image|nullable|max:1999'
            ]);
-   
+            $fileNameToStore = null;
            if($request->hasFile('cimage')){
    
                $filenameWithExt = $request->file('cimage')->getClientOriginalName();
    
                $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
                $extension = $request->file('cimage')->getClientOriginalExtension();
-               $fileNameToStore = $filename.'_'.time().'.'.$extension;
-               $path = $request->file('cimage')->storeAs('public/cover_images',$fileNameToStore);
+               $fileNameToStore = $filename.'_'.time().'.'.$extension;              
+               $path = $request->file('cimage')->move(public_path('images/chat/'),$fileNameToStore);
            }
-           else {
-               $fileNameToStore = 'noimage.jpg';
-           }
+           
            $chat = new Chat;
            $chat->senderId = $request->input('chat_sen_id');
            $chat->receiverId = $request->input('chat_rec_id');
-           $chat->message = $request->input('message');
-           
+           $chat->message = $request->input('message');           
            $chat->chatImage = $fileNameToStore;           
            $chat->createdDate = date('Y-m-d');
            $chat->modifiedDate = now();

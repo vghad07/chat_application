@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyUimageUsersTable extends Migration
+class ModifyTblGroupChatTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class ModifyUimageUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {           
-                
-                $table->string('uImage',255)->nullable()->change();
-        
+        Schema::table('tbl_group_chat', function (Blueprint $table) {
+            //
+             $table->string('chatImage',255)->nullable()->change();
         });
     }
 
@@ -27,9 +26,8 @@ class ModifyUimageUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('tbl_group_chat', function (Blueprint $table) {
             //
-           
         });
     }
 }

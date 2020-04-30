@@ -1,7 +1,7 @@
  @extends('layouts.admin')
 
  @section('content')
- @include('inc.message')
+ 
  <div class="content-header row">
      <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
          <h3 class="content-header-title mb-0 d-inline-block">Manage Groups</h3>
@@ -65,7 +65,7 @@
                                              <td><input type="checkbox" class="input-chk"></td>
                                              <td>
                                                  <div class="media">
-                                                     <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle"><img src="{{ asset('app-assets/images/portrait/small/avatar-s-5.png')}}" alt="avatar"><i></i></span></div>
+                                                     <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle"><img src="{{ asset('images')}}/{{$group->gImage}}" alt="avatar"><i></i></span></div>
                                                      <div class="media-body media-middle">
                                                          <a href="#" class="media-heading">{{$group->gName}}</a>
                                                      </div>

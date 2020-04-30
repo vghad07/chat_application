@@ -20,18 +20,21 @@ class ChatController extends Controller
     public function index(){
         $user_id = auth()->user()->id;
         $isAdmin = auth()->user()->isAdmin;
-         $uid = session()->get('user_id');
-        $users = DB::select('SELECT * FROM users where id!='.$uid);
+        $uid = session()->get('user_id');
+        $users = DB::select("SELECT users.*,tbl_chat.senderId,tbl_chat.receiverId,tbl_chat.message FROM users left join tbl_chat on users.id = tbl_chat.senderId  where users.isActive = 1 And users.id != ".$uid." Group by users.id");
+        //$chat_s = DB::select("SELECT senderId,message,modifiedDate FROM tbl_chat where  receiverId=".$uid." Order By modifiedDate desc limit 1");
         
         if($user_id > 0 && $isAdmin ==1 ){
-                       
-            return view('adminchat')->with('users',$users)->with('chat_s','')->with('chat_r','');
+            return view('adminchat')->with('users',$users);
         } 
         else{
-            
             return view('userchat')->with('users',$users);
         }     
            
+    }
+
+    public function sendmail(){
+        return view('testmail');
     }
 
     public function group(Request $request){
@@ -44,10 +47,19 @@ class ChatController extends Controller
             return view('admingroupchat')->with('groups',$groups);
         } 
         else{
-            $groups = DB::select('SELECT gId FROM tbl_group_user where uId='.$request->session()->get('user_id'));
+            $data = [];
+            // $groups = DB::select('SELECT gId FROM tbl_group_user where uId='. $user_id);
+             $groups =  DB::table('tbl_group_user')->where('uId',$user_id)->get(); 
             if(count($groups)>0){
-                $group = DB::select('SELECT * FROM tbl_groups where gId in('.$groups->gId.')');
-            return view('usergroupchat')->with('groups',$groups);
+                for($i =0;$i<count($groups);$i++){
+                    $data[$i] = $groups[$i]->gId;
+                }
+              
+              // $grps = DB::select('SELECT * FROM tbl_groups where gId in('.$gids.')')->toSql();
+                  $grps =  DB::table('tbl_groups')->whereIn('gId',$data)->get();  
+                                   
+            
+                return view('usergroupchat')->with('grps',$grps);
             }
             
         }     
@@ -58,7 +70,7 @@ class ChatController extends Controller
         $this->validate($request,[            
             'cimage' =>'image|nullable|max:1999'
            ]);
-   
+          
            if($request->hasFile('cimage')){
    
                $filenameWithExt = $request->file('cimage')->getClientOriginalName();
@@ -66,11 +78,10 @@ class ChatController extends Controller
                $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
                $extension = $request->file('cimage')->getClientOriginalExtension();
                $fileNameToStore = $filename.'_'.time().'.'.$extension;
-               $path = $request->file('cimage')->storeAs('public/cover_images',$fileNameToStore);
+              // $path = $request->file('cimage')->storeAs('public/cover_images',$fileNameToStore);
+                $path = $request->file('cimage')->move(public_path('images/chat/'),$fileNameToStore);
            }
-           else {
-               $fileNameToStore = 'noimage.jpg';
-           }
+          
            $chat = new Chat;
            $chat->senderId = $request->input('chat_sen_id');
            $chat->receiverId = $request->input('chat_rec_id');
@@ -101,19 +112,17 @@ class ChatController extends Controller
         $this->validate($request,[            
             'cimage' =>'image|nullable|max:1999'
            ]);
-   
+         
            if($request->hasFile('cimage')){
    
                $filenameWithExt = $request->file('cimage')->getClientOriginalName();
    
                $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
                $extension = $request->file('cimage')->getClientOriginalExtension();
-               $fileNameToStore = $filename.'_'.time().'.'.$extension;
-               $path = $request->file('cimage')->storeAs('public/cover_images',$fileNameToStore);
+               $fileNameToStore = $filename.'_'.time().'.'.$extension;               
+               $path = $request->file('cimage')->move(public_path('images/groupchat/'),$fileNameToStore);
            }
-           else {
-               $fileNameToStore = 'noimage.jpg';
-           }
+           
            $chat = new Group_chat;
            $chat->uId = $request->input('chat_sen_id');
            $chat->gId = $request->input('gId');
