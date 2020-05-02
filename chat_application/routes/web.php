@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Mail;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
-Route::get('/', function () {
-  
-    return view('welcome');
-});*/
 
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
@@ -27,12 +22,6 @@ Auth::routes();
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index');
-
-//Route::get('/home', 'HomeController@index')->name('home');
-
-//Route::resource('posts','PostsController');
-//Route::resource('users','UsersController');
-//Auth::routes();
 
 Route::get('/users/create', 'UsersController@create');
 Route::post('/users/adduser','UsersController@store');
@@ -45,7 +34,7 @@ Route::put('/users/user_list/{id}/update', 'UsersController@update');
 Route::get('/users/user_list/{id}/activate', 'UsersController@activate');
 Route::get('/users/user_list/{id}/deactivate', 'UsersController@deactivate');
 Route::get('/users/user_list/{id}/delete', 'UsersController@destroy');
-
+Route::get('/pages/emailverify/{act_code}/activate', 'PagesController@activateEmail');
 Route::get('/group/group_list', 'GroupController@index');
 Route::get('/group/usergroup', 'GroupController@userGroup');
 Route::post('/group/usergroup', 'GroupController@addUserGroup');
@@ -62,6 +51,7 @@ Route::post('/chat/group', 'ChatController@groupInsert');
 Route::get('/ajax/ajaxRequest', 'AjaxController@ajaxRequest');
 Route::post('/ajax/ajaxRequest', 'AjaxController@ajaxRequestPost')->name('ajaxRequest.post');
 Route::post('/ajax/ajaxRequests', 'AjaxController@ajaxRequestsPost')->name('ajaxRequests.insertpost');
+Route::post('/ajax/aRequest', 'AjaxController@ajaxRequestcountMessage')->name('aRequest.countmessage');
 Route::post('/ajax/ajaxReq', 'AjaxController@ajaxReqgetUsers')->name('ajaxReq.getUsers');
 Route::get('/groupchat/groupchatRequest', 'GroupchatController@groupchatRequest');
 Route::post('/groupchat/groupchatinsert', 'GroupchatController@groupChatInsert');

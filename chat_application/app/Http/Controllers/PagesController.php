@@ -1,31 +1,49 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
     //
-    
-    public function index() {
-        $title = "Welcome to the index page of Laravel";
-      //  return view('pages.index',compact('title'));
+    public function __construct()
+    {
+        $this->middleware('auth');
+        //$this->middleware(['auth', 'verified']);
+    }
+    public function index() {    
           return view('auth.login');
     }
+protected function activateEmail($code){
+        
+       $users =   DB::select("SELECT * FROM users WHERE activation_code='$code'");
+        
+         if($users>0)
+         {
+           $st=0;
+          // $result =mysqli_query($con,"SELECT id FROM userregistration WHERE activationcode='$code' and status='$st'");
+           $result = DB::select("SELECT * FROM users WHERE activation_code='$code' And isActive='$st'");
+           
+          if(count($result)>0)
+            {
+               $st=1;
+             
+              $result1 = DB::select("SELECT * FROM users  SET isActive='$st',email_verified_at=now() WHERE activation_code='$code'");
+              $msg="Your account is activated";
+           }
+            else{
+           $msg ="Your account is already active, no need to activate again";
+              }
+        }
+        else{
+         $msg ="Wrong activation code.";
+       }
 
-   /* public function about() {
-        $title = "Welcome to about us page of Laravel project";
-        return view('pages.about')->with('title',$title);
-    }
-
-    public function service() {
-        $data = array(
-            'title'=>'Services page of Laravel project',
-            'services'=>['Web designing','Programming','Testing']
-        );
-        return view('pages.services')->with($data);
-    }*/
+       return view('auth.login')->with('msg',$msg);
+}
+    
+  
 }
 
    

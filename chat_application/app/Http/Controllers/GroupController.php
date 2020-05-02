@@ -38,7 +38,8 @@ class GroupController extends Controller
         //
         $user_id = auth()->user()->id;
         $isAdmin = auth()->user()->isAdmin;
-        if($user_id > 0 && $isAdmin ==1 ){
+        $isActive = auth()->user()->isActive;
+        if($user_id > 0 && $isAdmin ==1 && $isActive==1){
             return view('creategroup');
         }
         else{

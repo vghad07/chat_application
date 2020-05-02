@@ -21,10 +21,8 @@ class ChatController extends Controller
         $user_id = auth()->user()->id;
         $isAdmin = auth()->user()->isAdmin;
         $uid = session()->get('user_id');
-        $users = DB::select("SELECT users.*,tbl_chat.senderId,tbl_chat.unread,tbl_chat.receiverId,tbl_chat.message FROM users left join tbl_chat on users.id = tbl_chat.senderId  where users.isActive = 1 And users.id != ".$uid." Group by users.id");
-   //   $users = DB::select("SELECT count(tbl_chat.read) as cn FROM users left join tbl_chat on users.id = tbl_chat.senderId  where tbl_chat.read=0 AND users.isActive = 1 And users.id != ".$uid." Group by users.id");
-      
-         //$chat_s = DB::select("SELECT senderId,message,modifiedDate FROM tbl_chat where  receiverId=".$uid." Order By modifiedDate desc limit 1");
+        $users = DB::select("SELECT users.*,tbl_chat.senderId,tbl_chat.receiverId,tbl_chat.message FROM users left join tbl_chat on users.id = tbl_chat.senderId  where users.isActive = 1 And users.id != ".$uid." Group by users.id");
+        //$chat_s = DB::select("SELECT senderId,message,modifiedDate FROM tbl_chat where  receiverId=".$uid." Order By modifiedDate desc limit 1");
         
         if($user_id > 0 && $isAdmin ==1 ){
             return view('adminchat')->with('users',$users);
@@ -43,31 +41,32 @@ class ChatController extends Controller
         
         $user_id = auth()->user()->id;
         $isAdmin = auth()->user()->isAdmin;
+         $isActive = auth()->user()->isActive;
         $groups = DB::select('SELECT * FROM tbl_groups');
-        if($user_id > 0 && $isAdmin ==1 ){
+        if($user_id > 0 && $isAdmin ==1 && $isActive ==1){
            
             return view('admingroupchat')->with('groups',$groups);
         } 
         else{
             $data = [];
-            // $groups = DB::select('SELECT gId FROM tbl_group_user where uId='. $user_id);
-             $groups =  DB::table('tbl_group_user')->where('uId',$user_id)->get(); 
+             $groups = DB::select('SELECT tbl_groups.gId FROM tbl_group_user join tbl_groups on tbl_group_user.uId=tbl_groups.createdBy where tbl_groups.createdBy='. $user_id);
+            // $groups =  DB::table('tbl_group_user')->where('uId',$user_id)->get(); 
+           
             if(count($groups)>0){
                 for($i =0;$i<count($groups);$i++){
                     $data[$i] = $groups[$i]->gId;
                 }
-              
               // $grps = DB::select('SELECT * FROM tbl_groups where gId in('.$gids.')')->toSql();
-                  $grps =  DB::table('tbl_groups')->whereIn('gId',$data)->get();  
-                                   
-            
-                return view('usergroupchat')->with('grps',$grps);
+                  $grps =  DB::table('tbl_groups')->whereIn('gId',$data)->get(); 
+            //  $grps = DB::select("SELECT * FROM tbl_groups where createdBy =".$user_id." AND gId in($arr)")->get();
+              //    $grps =  DB::table('tbl_groups')->join('tbl_group_user','tbl_groups.createdBy','=','tbl_group_user.uId')->where('tbl_group_user.uId',$user_id)->whereIn('tbl_group_user.gId',$data)->get(); 
+                    return view('usergroupchat')->with('grps',$grps);
             }
             
         }     
            
     }
- /*   public function insert(Request $request){
+    public function insert(Request $request){
      
         $this->validate($request,[            
             'cimage' =>'image|nullable|max:1999'
@@ -101,7 +100,7 @@ class ChatController extends Controller
                return response()->json(['success'=>'Success Message Added success Request.']);
            }
          
-    }*/
+    }
 
     public function groupInsert(Request $request){
      

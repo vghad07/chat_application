@@ -29,13 +29,9 @@
                      <div class="card-header">
                          <h4 class="card-title" id="basic-layout-colored-form-control">User Profile</h4>
                          <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-
-                     </div>
+                      </div>
                      <div class="card-content collapse show">
-
-
-
-                         <div class="card-body">
+                        <div class="card-body">
 
                              {{ Form::open(['action' => 'GroupController@store','method'=>'POST','enctype'=>'multipart/form-data']) }}
                              <div class="form-body">
@@ -75,11 +71,9 @@
                              </div>
                          </div>
                      </div>
-                 </div>
-             </div>
-
-     </section>
-     <!-- // Basic form layout section end -->
+                </div>
+            </div>
+     </section>  
  </div>
 
 

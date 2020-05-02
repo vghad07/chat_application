@@ -18,21 +18,20 @@
             </div>
             <div id="users-list" class="list-group position-relative">
                 <div class="users-list-padding media-list">
+                <form>
+                            @csrf 
                     @if(count($users)>0)
                         @foreach($users as $user)
-                            <form>
-                            @csrf
-                              
-                               
-
-                                <a href="#" class=" media border-0 btn-submit" data-id="{{$user->id}}">
+                            
+                                              
+                           <a href="#"  class=" media border-0 btn-submit" data-id="{{$user->id}}">
                                    <div class="media-left pr-1">
                                        <span class="avatar avatar-md avatar-busy">
                                            <img class="media-object rounded-circle" src="{{asset('images')}}/{{$user->uImage}}" alt="Generic placeholder image">
                                            <i></i>
                                        </span>
-                                         <input type="text" name="sen_id" value="{{session('user_id')}}">
-                                <input type="text" name="rec_id"  value="{{$user->id}}">
+                                         <input type="hidden" name="sen_id" value="{{session('user_id')}}">
+                                <input type="hidden" name="rec_id"  value="{{$user->id}}">
                         
                                    </div>
                                     <div class="media-body w-100">
@@ -44,19 +43,20 @@
                                         <p class="list-group-item-text text-muted mb-0">
                                         <i class="ft-check primary font-small-2">
 
-                                        </i> 
+                                        </i> <span id="last_msg"></span>
                                             <span class="float-right primary">
-                                               <span class="badge badge-pill badge-danger"></span>
+                                               <span  id="cnt_msg{{$user->id}}"></span>
                                             </span>
                                         </p>
                                    </div>
                                 </a>
-                            </form>
+                             
+                            
 
 
                         @endforeach
                     @endif
-
+                </form>
                 </div>
             </div>
            </div>
@@ -110,13 +110,22 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript">  
        $(document).ready(function(){
+           var chat_sen_id = $("input[name=chat_sen_id]").val();
+         //  var chat_rec_id = $("input[name=chat_rec_id]").val();
+          setTimeout(function() {    
+
+              getMessages({{session('user_id')}},chat_sen_id)
+               }, 5000);
+
            setTimeout(function() {
           var chat_sen_id = $("input[name=chat_sen_id]").val();
            var chat_rec_id = $("input[name=chat_rec_id]").val();
            LoadData(chat_rec_id,chat_sen_id);
             }, 1000);
        });
-     
+    /*function  messageSeen(this){
+        alert(this);
+    }   */
        
         $(document).on('click', 'i', function(event){
             $("input[type='file']").trigger('click');
@@ -125,11 +134,19 @@
 
        $(document).on('click', '.send_frm', function(event) {
        
-           var message = $("input[name=message]").val();
+        
            var chat_sen_id = $("input[name=chat_sen_id]").val();
            var chat_rec_id = $("input[name=chat_rec_id]").val();
-          var cimage = $("input[name=cimage]").val();          
-           
+        
+          var form = $("#chatFrm")[0];
+          var formData = new FormData(form);
+          formData.append('message', $("input[name=message]").val());
+           formData.append('chat_sen_id', $("input[name=chat_sen_id]").val());
+           formData.append('chat_rec_id', $("input[name=chat_rec_id]").val());
+          if( document.getElementById("cimage").files.length > 0 ){
+             formData.append('cimage', $('input[type=file]')[0].files[0]);
+          }
+          
           $.ajaxSetup({
                headers: {
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -138,24 +155,50 @@
            $.ajax({
             type: 'POST'
             , url: "{{route('ajaxRequests.insertpost')}}"
-            , data: {
-              chat_sen_id: chat_sen_id
-                , chat_rec_id: chat_rec_id
-                , message: message
-                // ,cimage: cimage
-
-            }
+            , data: formData
+            ,  contentType: false
+             ,  processData: false
+            
             , success: function(data) {                
                 $("#chatFrm").trigger("reset");
+               
+                
                 LoadData(chat_rec_id,chat_sen_id);
+                getMessages(chat_rec_id,chat_sen_id);
             }
         });
           return false;
 
        });
+
+       function getMessages(rid,sid){
+          console.log(rid,sid);
+         $.ajaxSetup({
+               headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+           });
+           $.ajax({
+            type: 'POST'
+           , url: "{{route('aRequest.countmessage')}}" 
+            , data: {
+                 rid: rid
+                , sid: sid
+            }            
+            , success: function(data) {       
+               var sender = $(".btn-submit").data('id'); 
+             
+               if(data.nos>0){
+                  var cnt = '<span id="cnt_msg'+sender+'" class="badge badge-pill badge-danger">'+data.nos+'</span>';
+                $("#cnt_msg"+sender).replaceWith(cnt);
+               }
+                
+               // LoadData(chat_rec_id,chat_sen_id);
+                
+            }
+        });            
      
-     
-     
+     }
        $(document).on('click', '.btn-submit', function(event) {
           
            var rec = $(this).attr('data-id');
@@ -196,14 +239,14 @@
                    if(data.smsg[i].senderId=={{session('user_id')}}){
                    list += '<div class="chat" id="chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="{{asset('images')}}/{{session('pic')}}" style="height:25px;width:25px;" /><span>{{session("name")}}</span></a></div><div class="chat-body"><div class="chat-content" id="chat_sen_msgs"><p class="chat_sen_msg">' + data.smsg[i].message + '</p></div></div></div>';                
                      if(data.smsg[i].chatImage !==null ){
-                    list +='<img src="{{asset('images/chat/')}}/'+data.smsg[i].chatImage+'" />';
+                    list +='<img src="{{asset('images/chat')}}/'+data.smsg[i].chatImage+'" style="width:25%;height:25%" />';
                      }
                    }
                    if(data.smsg[i].receiverId=={{session('user_id')}})
                    {
                    list += '<div class="chat chat-left" id="left_chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title=""><img src="{{asset('images')}}/'+data.uimage+'" style="height:25px;width:25px; margin:2px" alt="avatar" /><span>'+data.name+'</span></a></div><div class="chat-body"><div class="chat-content" id="chat_rec_msgs"><p class="chat_rec_msg">' + data.smsg[i].message + '</p></div></div></div>';
                      if(data.smsg[i].chatImage !==null){
-                   list +='<img src="{{asset('images/chat/')}}/'+data.smsg[i].chatImage+'" />';
+                   list +='<img src="{{asset('images/chat')}}/'+data.smsg[i].chatImage+'" style="width:25%;height:25%" />';
                      }
                    }
              }

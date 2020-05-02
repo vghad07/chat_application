@@ -8,20 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template.">
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
-    <meta name="author" content="">
+    
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Demo Project</title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="https://pixinvent.com/bootstrap-admin-template/robust/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CMuli:300,400,500,700" rel="stylesheet">
-    <!-- BEGIN VENDOR CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/vendors.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/jquery-jvectormap-2.0.3.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/morris.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/unslider.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/weather-icons/climacons.min.css')}}">
-    <!-- END VENDOR CSS-->
-    <!-- BEGIN ROBUST CSS-->
+   
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/app.min.css')}}">
     <!-- END ROBUST CSS-->
     <!-- BEGIN Page Level CSS-->
@@ -35,6 +28,11 @@
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css')}}">
     <!-- END Custom CSS-->
+    <style>
+    #cimage {
+  display: none;
+}
+</style>
 </head>
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
 
@@ -126,16 +124,6 @@
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js')}}"></script>
     
      
-    <script src="{{ asset('app-assets/vendors/js/charts/raphael-min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/charts/morris.min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/charts/chart.min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/charts/jvector/jquery-jvectormap-2.0.3.min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/charts/jvector/jquery-jvectormap-world-mill.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/extensions/moment.min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/extensions/underscore-min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/extensions/clndr.min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/charts/echarts/echarts.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/extensions/unslider-min.js')}}"></script>
 
     <!-- END PAGE VENDOR JS-->
     <!-- BEGIN ROBUST JS-->

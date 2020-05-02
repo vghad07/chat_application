@@ -22,8 +22,8 @@
                         @foreach($groups as $group)
                             <form>
                             @csrf
-                                <input type="text" name="sen_id" value="{{session('user_id')}}">
-                                <input type="text" name="rec_id"  value="{{$group->gId}}">
+                                <input type="hidden" name="sen_id" value="{{session('user_id')}}">
+                                <input type="hidden" name="rec_id"  value="{{$group->gId}}">
                         
                                <a href="#" class=" media border-0 btn-submit" data-id="{{$group->gId}}">
 
@@ -72,8 +72,8 @@
                                     <i class="icon-emoticon-smile"></i>
                                 </div>
                                 <input type="text" class="form-control" id="message" name="message" placeholder="Type your message">
-                                <input type="text" name="chat_sen_id" value="{{session('user_id')}}">
-                                <input type="text" name="gid">
+                                <input type="hidden" name="chat_sen_id" value="{{session('user_id')}}">
+                                <input type="hidden" name="gid">
                                     <div class="form-control-position control-position-right">
                                        <i><img src="https://img.icons8.com/office/16/000000/attach.png"/></i>
                                         <input type="file" name="cimage" id="cimage">
@@ -109,13 +109,19 @@
         });
 
 
-       $(document).on('click', '.send_frm', function(event) {
+         $(document).on('click', '.send_frm', function(event) {
        
-           var message = $("input[name=message]").val();
+          // var message = $("input[name=message]").val();
            var chat_sen_id = $("input[name=chat_sen_id]").val();
            var gid = $("input[name=gid]").val();
-           var cimage = $("input[name=cimage]").val();          
-           
+        //   var cimage = $("input[name=cimage]").val();          
+           var form = $("#gchatFrm")[0];
+          var formData = new FormData(form);
+          formData.append('message', $("input[name=message]").val());
+           formData.append('chat_sen_id', $("input[name=chat_sen_id]").val());
+           formData.append('gid', $("input[name=gid]").val());
+
+          formData.append('cimage', $('input[type=file]')[0].files[0]);
           $.ajaxSetup({
                headers: {
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -124,15 +130,11 @@
            $.ajax({
             type: 'POST'
             , url: "{{route('groupChatRequests.insertpost')}}"
-            , data: {
-              chat_sen_id: chat_sen_id
-                , gid: gid
-                , message: message
-                // ,cimage: cimage
-
-            }
+            , data: formData
+            ,  contentType: false
+             ,  processData: false
             , success: function(data) {                
-                $("#chatFrm").trigger("reset");
+                $("#gchatFrm").trigger("reset");
                 LoadData(gid,chat_sen_id);
             }
         });
@@ -172,21 +174,30 @@
              $("input[name=gid]").val(data.gid);
             
              var list ="";
-            
            
+          
            if(data.gmsg.length == 0){
             $('#chats_box').html(list);
             
            }
-           else{  for(var i=0;i<data.gmsg.length;i++){
-                   if(data.gmsg[i].id==data.gmsg[i].uId){
+
+          
+           else{ 
+               
+                for(var i=0;i<data.gmsg.length;i++){
+                    if(data.gmsg[i].uId=={{session('user_id')}}){
                    list += '<div class="chat" id="chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="{{asset('images')}}/{{session('pic')}}" style="height:25px;width:25px;" alt="avatar" /><span>'+data.gmsg[i].name+'</span></a></div><div class="chat-body"><div class="chat-content" id="chat_sen_msgs"><p class="chat_sen_msg">' + data.gmsg[i].chatMessage + '</p></div></div></div>';                
-                  
+                   if(data.gmsg[i].chatImage !==null ){
+                    list +='<img src="{{asset('images/groupchat')}}/'+data.gmsg[i].chatImage+'" style="width:25%;height:25%" />';
+                     }
                    }
                    else
-                   {
-                   list += '<div class="chat chat-left" id="left_chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title=""><img src="{{asset('images/')}}/'+data.users[i].uImage+'" style="height:25px;width:25px; margin:2px" alt="avatar" /><span>'+data.users[i].name+'</span></a></div><div class="chat-body"><div class="chat-content" id="chat_rec_msgs"><p class="chat_rec_msg">' + data.gmsg[i].chatMessage + '</p></div></div></div>';
-                  
+                   {                     
+                                             
+                   list += '<div class="chat chat-left" id="left_chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title=""><img src="{{asset('images')}}/'+data.gmsg[i].uImage+'" style="height:25px;width:25px; margin:2px" alt="avatar" /><span>'+data.gmsg[i].name+'</span></a></div><div class="chat-body"><div class="chat-content" id="chat_rec_msgs"><p class="chat_rec_msg">' + data.gmsg[i].chatMessage + '</p></div></div></div>';
+                  if(data.gmsg[i].chatImage !==null ){
+                    list +='<img src="{{asset('images/groupchat')}}/'+data.gmsg[i].chatImage+'" style="width:25%;height:25%" />';
+                     }
                    }
              }
              

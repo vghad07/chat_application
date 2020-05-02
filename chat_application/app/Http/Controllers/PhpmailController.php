@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-namespace App\Mail;
+use App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
