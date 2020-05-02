@@ -38,7 +38,7 @@
         chdir: /var/www/html/chat_application
         warn: no
     - name: php application running on port - localhost:8080
-      shell: php artisan serve --host=ec2-18-234-182-178.compute-1.amazonaws.com --port=8080
+      shell: php artisan serve --host=ec2-3-81-117-172.compute-1.amazonaws.com --port=8080
       args:
         chdir: /var/www/html/chat_application
         executable: /bin/bash
