@@ -1,6 +1,6 @@
 
 
-@extends('layouts.admin_chatlayout')
+@extends('layouts.admin')
 
 @section('content')
 
@@ -268,7 +268,7 @@
           });
         }
 
- /*   function seenMessages(rid,sid){
+   function seenMessages(rid,sid){
         console.log(rid,sid);
         $.ajaxSetup({
             headers: {
@@ -290,6 +290,6 @@
                 
             
           });   
-     }*
+     }
 </script>
 

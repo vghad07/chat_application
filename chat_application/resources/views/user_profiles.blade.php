@@ -1,4 +1,4 @@
-@extends('layouts.user_chatlayout')
+@extends('layouts.Users')
 
 @section('content')
 
