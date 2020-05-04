@@ -1,10 +1,21 @@
-FROM php:5.5-apache
+FROM php:7.2.10-apache-stretch
 
-RUN docker-php-ext-install pdo_mysql
-RUN a2enmod rewrite
+RUN apt-get update -yqq && \
+  apt-get install -y apt-utils zip unzip && \
+  apt-get install -y nano && \
+  apt-get install -y libzip-dev && \
+  a2enmod rewrite && \
+  docker-php-ext-install mysqli pdo pdo_mysql && \
+  docker-php-ext-configure zip --with-libzip && \
+  docker-php-ext-install zip && \
+  rm -rf /var/lib/apt/lists/*
 
-ADD . /var/www
-ADD ./public /var/www/html
+RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 
-ADD config/docker/apache.conf /etc/apache2/httpd.conf
-COPY config/docker/php.ini /usr/local/etc/php/
+COPY ./chat_application /var/www/html
+
+WORKDIR /var/www/html
+
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+
+EXPOSE 80
