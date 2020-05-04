@@ -95,6 +95,17 @@ class AjaxController extends Controller
       return response()->json(['nos'=> $cnt,'success'=>'Count message']);
            
     }
+    public function ajaxRequestsseenMessage(Request $request){
+        
+          
+       $affected = DB::table('tbl_chat')
+              ->where('receiverId',$request->input('sid'))
+              ->where('senderId',$request->session()->get('user_id'))
+              ->update(['unread' => 1]); 
+                       
+      return response()->json(['success'=>'Message seen']);
+           
+    }
     public function ajaxReqgetUsers(Request $request){
     //    $group_users = DB::select('SELECT tbl_group_user.uId,users.name FROM tbl_group_user')->join('users', 'users.id', '=', 'tbl_group_user.uId')->where('gId='.$request->input('gid')); 
     $group_users = DB::table('tbl_group_user')->join('users', 'users.id', '=', 'tbl_group_user.uId')->select('tbl_group_user.uId','users.name')->where('tbl_group_user.gId',$request->input('gid'))->get();   

@@ -119,5 +119,6 @@
     
    <script src="{{ asset('app-assets/js/scripts/pages/chat-application.js')}}"></script>
   
+  
 </body>
 </html>

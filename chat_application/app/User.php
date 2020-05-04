@@ -29,7 +29,7 @@ class User extends Authenticatable
     ];
     
     protected $nullable = [
-        'uImage','activation_code'
+        'uImage',
     ];
     /**
      * The attributes that should be cast to native types.

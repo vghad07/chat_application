@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Mail;
 */
 
 Route::get('/', 'PagesController@index');
-Route::get('/about', 'PagesController@about');
-Route::get('/service', 'PagesController@service');
+//Route::get('/about', 'PagesController@about');
+//Route::get('/service', 'PagesController@service');
 
 
 Auth::routes();
-Auth::routes(['verify' => true]);
+//Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index');
 
@@ -34,7 +34,7 @@ Route::put('/users/user_list/{id}/update', 'UsersController@update');
 Route::get('/users/user_list/{id}/activate', 'UsersController@activate');
 Route::get('/users/user_list/{id}/deactivate', 'UsersController@deactivate');
 Route::get('/users/user_list/{id}/delete', 'UsersController@destroy');
-Route::get('/pages/emailverify/{act_code}/activate', 'PagesController@activateEmail');
+Route::get('/pages/activate/{act_code}/activateEmail', 'PagesController@activateEmail');
 Route::get('/group/group_list', 'GroupController@index');
 Route::get('/group/usergroup', 'GroupController@userGroup');
 Route::post('/group/usergroup', 'GroupController@addUserGroup');
@@ -52,6 +52,7 @@ Route::get('/ajax/ajaxRequest', 'AjaxController@ajaxRequest');
 Route::post('/ajax/ajaxRequest', 'AjaxController@ajaxRequestPost')->name('ajaxRequest.post');
 Route::post('/ajax/ajaxRequests', 'AjaxController@ajaxRequestsPost')->name('ajaxRequests.insertpost');
 Route::post('/ajax/aRequest', 'AjaxController@ajaxRequestcountMessage')->name('aRequest.countmessage');
+Route::post('/ajax/aRequests', 'AjaxController@ajaxRequestseenMessage')->name('aRequests.seenmessage');
 Route::post('/ajax/ajaxReq', 'AjaxController@ajaxReqgetUsers')->name('ajaxReq.getUsers');
 Route::get('/groupchat/groupchatRequest', 'GroupchatController@groupchatRequest');
 Route::post('/groupchat/groupchatinsert', 'GroupchatController@groupChatInsert');

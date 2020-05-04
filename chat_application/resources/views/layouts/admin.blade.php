@@ -14,8 +14,15 @@
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="https://pixinvent.com/bootstrap-admin-template/robust/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CMuli:300,400,500,700" rel="stylesheet">
-   
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/app.min.css')}}">
+   <!-- BEGIN VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/vendors.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/jquery-jvectormap-2.0.3.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/morris.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/unslider.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/weather-icons/climacons.min.css')}}">
+    <!-- END VENDOR CSS-->
+    <!-- BEGIN ROBUST CSS-->																										  
+	<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/app.min.css')}}">
     <!-- END ROBUST CSS-->
     <!-- BEGIN Page Level CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.min.css')}}">
@@ -124,6 +131,16 @@
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js')}}"></script>
     
      
+    <script src="{{ asset('app-assets/vendors/js/charts/raphael-min.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/charts/morris.min.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/charts/chart.min.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/charts/jvector/jquery-jvectormap-2.0.3.min.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/charts/jvector/jquery-jvectormap-world-mill.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/extensions/moment.min.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/extensions/underscore-min.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/extensions/clndr.min.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/charts/echarts/echarts.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/extensions/unslider-min.js')}}"></script>
 
     <!-- END PAGE VENDOR JS-->
     <!-- BEGIN ROBUST JS-->
@@ -136,6 +153,7 @@
     <script src="{{ asset('app-assets/js/scripts/pages/chat-application.js')}}"></script>
 
     <!-- END PAGE LEVEL JS-->
+    
 </body>
 
 <!-- Mirrored from pixinvent.com/bootstrap-admin-template/robust/html/ltr/vertical-menu-template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Apr 2020 10:34:51 GMT -->

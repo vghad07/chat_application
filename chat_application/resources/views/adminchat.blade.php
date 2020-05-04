@@ -19,12 +19,13 @@
             <div id="users-list" class="list-group position-relative">
                 <div class="users-list-padding media-list">
                 <form>
+                    <ul id="myTab">
                             @csrf 
                     @if(count($users)>0)
                         @foreach($users as $user)
                             
-                                              
-                           <a href="#"  class=" media border-0 btn-submit" data-id="{{$user->id}}">
+                          <li>                    
+                           <a href="#user{{$user->id}}"  class=" media border-0 btn-submit" data-toggle="tab"  data-id="{{$user->id}}">
                                    <div class="media-left pr-1">
                                        <span class="avatar avatar-md avatar-busy">
                                            <img class="media-object rounded-circle" src="{{asset('images')}}/{{$user->uImage}}" alt="Generic placeholder image">
@@ -66,7 +67,7 @@
             <div class="content-wrapper">
                 <div class="content-header row"></div>
                     <div class="content-body">
-                        <section class="chat-app-window" >
+                        <section class="chat-app-window"  >
                             <div class="badge badge-default  mb-1">Chat History</div>
                                 <div class="chats" >
                                     <div class="chats" id="chats_box" >
@@ -108,7 +109,7 @@
 @endsection
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script type="text/javascript">  
+    <script type="application/javascript">  
        $(document).ready(function(){
            var chat_sen_id = $("input[name=chat_sen_id]").val();
          //  var chat_rec_id = $("input[name=chat_rec_id]").val();
@@ -122,11 +123,24 @@
            var chat_rec_id = $("input[name=chat_rec_id]").val();
            LoadData(chat_rec_id,chat_sen_id);
             }, 1000);
+
+$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+        localStorage.setItem('activeTab', $(e.target).attr('href'));
+    });
+    var activeTab = localStorage.getItem('activeTab');
+    if(activeTab){
+        $('#myTab a[href="' + activeTab + '"]').tab('show');
+    }
+
        });
     /*function  messageSeen(this){
         alert(this);
     }   */
        
+    
+    
+
+
         $(document).on('click', 'i', function(event){
             $("input[type='file']").trigger('click');
         });
@@ -202,7 +216,11 @@
        $(document).on('click', '.btn-submit', function(event) {
           
            var rec = $(this).attr('data-id');
-           var sen = $("input[name=sen_id]").val();             
+           var sen = $("input[name=sen_id]").val();
+           alert(rec);
+           alert(sen); 
+           $(this).parent().addClass('active'); 
+                senMessages(rec,sen)     
            event.preventDefault();  
            LoadData(rec,sen);
            return false;
@@ -257,5 +275,29 @@
             }
           });
         }
+
+    function seenMessages(rid,sid){
+        console.log(rid,sid);
+        $.ajaxSetup({
+            headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+           });
+           $.ajax({
+            type: 'POST'
+           , url: "{{route('aRequests.seenmessage')}}" 
+            , data: {
+                 rid: rid
+                , sid: sid
+            }            
+            , success: function(data) {       
+              
+               }
+                
+               // LoadData(chat_rec_id,chat_sen_id);
+                
+            
+          });   
+     }
 </script>
 
