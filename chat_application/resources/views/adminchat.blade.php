@@ -217,10 +217,9 @@ $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
           
            var rec = $(this).attr('data-id');
            var sen = $("input[name=sen_id]").val();
-           alert(rec);
-           alert(sen); 
+           
            $(this).parent().addClass('active'); 
-                senMessages(rec,sen)     
+                seenMessages(rec,sen)     
            event.preventDefault();  
            LoadData(rec,sen);
            return false;
