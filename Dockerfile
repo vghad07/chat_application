@@ -12,7 +12,7 @@ RUN apt-get update -yqq && \
 
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 
-COPY ./chat_application/public /var/www/html/public
+COPY ./chat_application/public/* /var/www/html/public/
 
 WORKDIR /var/www/html
 
