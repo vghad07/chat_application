@@ -19,13 +19,13 @@
             <div id="users-list" class="list-group position-relative">
                 <div class="users-list-padding media-list">
                 <form>
-                    <ul id="myTab">
+                    
                             @csrf 
                     @if(count($users)>0)
                         @foreach($users as $user)
                             
-                          <li>                    
-                           <a href="#user{{$user->id}}"  class=" media border-0 btn-submit" data-toggle="tab"  data-id="{{$user->id}}">
+                                            
+                           <a href="#"  class=" media border-0 btn-submit" data-toggle="tab"  data-id="{{$user->id}}">
                                    <div class="media-left pr-1">
                                        <span class="avatar avatar-md avatar-busy">
                                            <img class="media-object rounded-circle" src="{{asset('images')}}/{{$user->uImage}}" alt="Generic placeholder image">
@@ -50,8 +50,7 @@
                                             </span>
                                         </p>
                                    </div>
-                                </a>
-                             
+                                </a>               
                             
 
 
@@ -124,13 +123,7 @@
            LoadData(chat_rec_id,chat_sen_id);
             }, 1000);
 
-$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-        localStorage.setItem('activeTab', $(e.target).attr('href'));
-    });
-    var activeTab = localStorage.getItem('activeTab');
-    if(activeTab){
-        $('#myTab a[href="' + activeTab + '"]').tab('show');
-    }
+
 
        });
     /*function  messageSeen(this){
@@ -219,7 +212,7 @@ $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
            var sen = $("input[name=sen_id]").val();
            
            $(this).parent().addClass('active'); 
-                seenMessages(rec,sen)     
+               // seenMessages(rec,sen)     
            event.preventDefault();  
            LoadData(rec,sen);
            return false;
@@ -275,7 +268,7 @@ $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
           });
         }
 
-    function seenMessages(rid,sid){
+ /*   function seenMessages(rid,sid){
         console.log(rid,sid);
         $.ajaxSetup({
             headers: {
@@ -297,6 +290,6 @@ $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
                 
             
           });   
-     }
+     }*
 </script>
 
