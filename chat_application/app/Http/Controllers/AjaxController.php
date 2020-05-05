@@ -106,9 +106,17 @@ class AjaxController extends Controller
       return response()->json(['success'=>'Message seen']);
            
     }
-    public function ajaxReqgetUsers(Request $request){
+    public function ajaxReqgetGUsers(Request $request){
     //    $group_users = DB::select('SELECT tbl_group_user.uId,users.name FROM tbl_group_user')->join('users', 'users.id', '=', 'tbl_group_user.uId')->where('gId='.$request->input('gid')); 
     $group_users = DB::table('tbl_group_user')->join('users', 'users.id', '=', 'tbl_group_user.uId')->select('tbl_group_user.uId','users.name')->where('tbl_group_user.gId',$request->input('gid'))->get();   
          return response()->json(['resp'=>$group_users]);
+    }
+     public function ajaxReqsgetTUsers(Request $request){
+    //    $group_users = DB::select('SELECT tbl_group_user.uId,users.name FROM tbl_group_user')->join('users', 'users.id', '=', 'tbl_group_user.uId')->where('gId='.$request->input('gid')); 
+    $temp_groups = DB::table('tbl_temp_group_user')->join('tbl_groups', 'tbl_groups.gId', '=', 'tbl_temp_group_user.gId')->select('tbl_temp_group_user.tId','tbl_groups.gName')->where('tbl_temp_group_user.tId',$request->input('tid'))->get();
+    //$temp_users = DB::table('tbl_temp_group_user')->join('users', 'users.id', '=', 'tbl_temp_group_user.uId')->select('tbl_temp_group_user.uId','users.name')->where('tbl_temp_group_user.tId',$request->input('tid'))->get();   
+    $temp_users = DB::table('tbl_temp_group_user')->join('users', 'users.id', '=', 'tbl_temp_group_user.uId')->select('users.id','users.name')->where('tbl_temp_group_user.tId',$request->input('tid'))->get();
+    //$temp_users = DB::select("Select u.name from users u join tbl_temp_group_user ttgu on ttgu.uId=u.id"); 
+    return response()->json(['temp_group'=>$temp_groups,'temp_user'=>$temp_users]);
     }
 }

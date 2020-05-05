@@ -204,20 +204,19 @@ class GroupController extends Controller
                  break;
              }
              else{  
-            $group_users = new Group_users;
-
-           $group_users->gId = $request->input('gid');
-           $group_users->uId = $uid;               
-           $group_users->createdDate = date('Y-m-d');
-           $group_users->modifiedDate = now();
-           $group_users->isDelete = 0;
-           $group_users->isActive = 1;           
-           $group_users->save();
+                $group_users = new Group_users;
+                $group_users->gId = $request->input('gid');
+                $group_users->uId = $uid;               
+                $group_users->createdDate = date('Y-m-d');
+                $group_users->modifiedDate = now();
+                $group_users->isDelete = 0;
+                $group_users->isActive = 1;           
+                $group_users->save();
              }
-    }
+         }
         
-       return view('usergroup')->with('users',$users)->with('groups',$groups);
+         return view('usergroup')->with('users',$users)->with('groups',$groups);
+        }
     }
-  }
   
 }

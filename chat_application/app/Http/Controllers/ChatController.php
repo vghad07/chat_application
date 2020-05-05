@@ -21,10 +21,8 @@ class ChatController extends Controller
         $user_id = auth()->user()->id;
         $isAdmin = auth()->user()->isAdmin;
         $uid = session()->get('user_id');
-        $users = DB::select("SELECT users.*,tbl_chat.senderId,tbl_chat.unread,tbl_chat.receiverId,tbl_chat.message FROM users left join tbl_chat on users.id = tbl_chat.senderId  where users.isActive = 1 And users.id != ".$uid." Group by users.id");
-   //   $users = DB::select("SELECT count(tbl_chat.read) as cn FROM users left join tbl_chat on users.id = tbl_chat.senderId  where tbl_chat.read=0 AND users.isActive = 1 And users.id != ".$uid." Group by users.id");
-      
-         //$chat_s = DB::select("SELECT senderId,message,modifiedDate FROM tbl_chat where  receiverId=".$uid." Order By modifiedDate desc limit 1");
+        $users = DB::select("SELECT users.*,tbl_chat.senderId,tbl_chat.unread,tbl_chat.receiverId,tbl_chat.message FROM users left join tbl_chat on users.id = tbl_chat.senderId  where users.isActive = 1 And users.id != ".$uid);
+        
         
         if($user_id > 0 && $isAdmin ==1 ){
             return view('adminchat')->with('users',$users);

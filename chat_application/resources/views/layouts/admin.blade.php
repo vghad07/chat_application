@@ -31,12 +31,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/calendars/clndr.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/fonts/meteocons/style.min.css')}}">
     
-    <!-- END Page Level CSS-->
-    <!-- BEGIN Custom CSS-->
+   
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css')}}">
     <!-- END Custom CSS-->
     <style>
-    #cimage {
+    #cimage,#timage {
   display: none;
 }
 </style>
@@ -90,7 +89,7 @@
         </div>
     </nav>
 
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
+
 
 
     <div class="main-menu menu-fixed menu-dark menu-accordion    menu-shadow " data-scroll-to-active="true">
@@ -98,7 +97,7 @@
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class=" nav-item"><a href="{{ url('/users/user_list') }}"><i class="icon-user"></i><span class="menu-title" data-i18n="nav.users.main">Manage Users</span></a></li>
                 <li class=" nav-item"><a href="{{ url('/group/group_list') }}"><i class="icon-user"></i><span class="menu-title" data-i18n="nav.group.main">Manage Groups</span></a></li>
-
+                <li class=" nav-item"><a href="{{ url('/template/template_list') }}"><i ></i><span class="menu-title" data-i18n="nav.template.main">Manage Templates</span></a></li>
                 <li class=" nav-item"><a href="#"><span class="menu-title" data-i18n="nav.chat-application.main">Chat</span></a>
                     <ul class="menu-content">
                         <li><a class="menu-item" href="{{url('/chat/index')}}" data-i18n="nav.users.list">Users List</a>
@@ -107,6 +106,7 @@
                         </li>
                     </ul>
                 </li>
+                </ul>
 
         </div>
     </div>
@@ -117,7 +117,7 @@
              @yield('content')
         </div>
     </div>
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
+   
 
 
 
@@ -131,30 +131,18 @@
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js')}}"></script>
     
      
-    <script src="{{ asset('app-assets/vendors/js/charts/raphael-min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/charts/morris.min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/charts/chart.min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/charts/jvector/jquery-jvectormap-2.0.3.min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/charts/jvector/jquery-jvectormap-world-mill.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/extensions/moment.min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/extensions/underscore-min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/extensions/clndr.min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/charts/echarts/echarts.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/extensions/unslider-min.js')}}"></script>
 
-    <!-- END PAGE VENDOR JS-->
-    <!-- BEGIN ROBUST JS-->
+
     <script src="{{ asset('app-assets/js/core/app-menu.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/core/app.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/scripts/customizer.min.js')}}"></script>
-    <!-- END ROBUST JS-->
-    <!-- BEGIN PAGE LEVEL JS-->
+  
     <script src="{{ asset('app-assets/js/scripts/pages/dashboard-ecommerce.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/scripts/pages/chat-application.js')}}"></script>
 
-    <!-- END PAGE LEVEL JS-->
+    
     
 </body>
 
-<!-- Mirrored from pixinvent.com/bootstrap-admin-template/robust/html/ltr/vertical-menu-template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Apr 2020 10:34:51 GMT -->
+
 </html>

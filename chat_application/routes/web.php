@@ -53,9 +53,15 @@ Route::post('/ajax/ajaxRequest', 'AjaxController@ajaxRequestPost')->name('ajaxRe
 Route::post('/ajax/ajaxRequests', 'AjaxController@ajaxRequestsPost')->name('ajaxRequests.insertpost');
 Route::post('/ajax/aRequest', 'AjaxController@ajaxRequestcountMessage')->name('aRequest.countmessage');
 Route::post('/ajax/aRequests', 'AjaxController@ajaxRequestseenMessage')->name('aRequests.seenmessage');
-Route::post('/ajax/ajaxReq', 'AjaxController@ajaxReqgetUsers')->name('ajaxReq.getUsers');
+Route::post('/ajax/ajaxReq', 'AjaxController@ajaxReqgetGUsers')->name('ajaxReq.getGUsers');
+Route::post('/ajax/ajaxReqs', 'AjaxController@ajaxReqsgetTUsers')->name('ajaxReqs.getTUsers');
 Route::get('/groupchat/groupchatRequest', 'GroupchatController@groupchatRequest');
 Route::post('/groupchat/groupchatinsert', 'GroupchatController@groupChatInsert');
 Route::post('/groupchat/groupchatRequest', 'GroupchatController@groupchatRequestPost')->name('groupChatRequest.post');
 Route::post('/groupchat/groupchatRequests', 'GroupchatController@groupchatRequestsinsertPost')->name('groupChatRequests.insertpost');
 
+Route::get('/template/template_list', 'TemplateController@index');
+Route::get('/template/create', 'TemplateController@create');
+Route::post('/template/template_list', 'TemplateController@insert');
+Route::get('/template/assign', 'TemplateController@assign');
+Route::post('/template/assign', 'TemplateController@addUserGroupTemplate');
