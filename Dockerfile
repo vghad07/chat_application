@@ -14,6 +14,8 @@ RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-di
 
 ADD ./chat_application /var/www/html/
 
+RUN chmod 777 /var/www/html
+
 WORKDIR /var/www/html
 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
