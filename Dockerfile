@@ -16,8 +16,6 @@ ADD ./chat_application /var/www/html/
 
 RUN php -d memory_limit=-1 /usr/bin/composer install
 
-RUN php artisan up
-
 RUN php artisan migrate
 
 #change ownership of our applications
