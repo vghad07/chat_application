@@ -14,7 +14,14 @@ RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-di
 
 ADD ./chat_application /var/www/html/
 
-RUN chmod 777 /var/www/html
+RUN php -d memory_limit=-1 /usr/bin/composer install
+
+RUN php artisan up
+
+RUN php artisan migrate
+
+#change ownership of our applications
+RUN chown -R www-data:www-data /var/www/html
 
 WORKDIR /var/www/html
 
