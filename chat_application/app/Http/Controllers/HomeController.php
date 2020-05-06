@@ -28,11 +28,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 
-       // echo "<pre>";
-      //  print_r($request->session());
-      //  echo "*******************";
-      //  print_r(auth()->user());
-      //  exit;
+     
        if(auth()->user()->isActive==1){
         $url = auth()->user()->uImage;
         $request->session()->put(['user_id'=>auth()->user()->id,'is_admin'=> auth()->user()->isAdmin,'is_active'=>auth()->user()->isActive,'name'=>auth()->user()->name,'pic'=>$url]);

@@ -35,7 +35,7 @@
 </style>
 </head>
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
-<div id="app">
+
     <!-- fixed-top-->
     <nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-semi-dark navbar-shadow">
         <div class="navbar-wrapper">
@@ -118,7 +118,7 @@
     <script src="{{ asset('app-assets/js/scripts/customizer.min.js')}}"></script>
     
    <script src="{{ asset('app-assets/js/scripts/pages/chat-application.js')}}"></script>
-   <script src="{{ asset('js/app.js') }}" defer></script>
-  </div>
+  
+  
 </body>
 </html>
