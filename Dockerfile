@@ -18,8 +18,6 @@ RUN php -d memory_limit=-1 /usr/bin/composer install
 
 RUN php artisan migrate
 
-RUN php artisan serve --host=0.0.0.0 --port=9000
-
 #change ownership of our applications
 RUN chown -R www-data:www-data /var/www/html
 
