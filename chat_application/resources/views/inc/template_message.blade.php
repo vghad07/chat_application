@@ -5,9 +5,9 @@
   <div class="table-responsive">
 @foreach($temp as $t)
 
- <div>{{$t->tNmae}}</div>
- <div><img src="{{asset('images/template')}}/{{$t->tImage}}" /></div>
-  <div>{{$t->tDesription}}</div>
+ <div>{{$t->tName}}</div>
+ <div><img src="{{asset('images/template')}}/{{$t->tImage}}" style="width=125px;height=105px" /></div>
+  <div>{{$t->tDescription}}</div>
 
 @endforeach
  </div>
