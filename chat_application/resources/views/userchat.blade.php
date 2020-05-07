@@ -144,6 +144,10 @@
     $(document).on('click', 'i', function(event){
             $("input[type='file']").trigger('click');
         });
+        
+    setTimeout(function() {
+                $("#tmp_msg").hide('blind', {}, 500)
+                }, 5000);
    $(document).on('click', '.send_frm', function(event) {
        
                     
