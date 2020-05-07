@@ -1,6 +1,8 @@
 @extends ('layouts.admin')
 @section('content')
 
+ 
+ 
 <div class="content-wrapper">
      {{ Form::open(['action' => ['TemplateController@addUserGroupTemplate'],'id'=>'utFrm','name'=>'utFrm','class'=>'form-inline d-flex','method'=>'POST']) }}
      @csrf
@@ -26,6 +28,9 @@
                  <option value="{{$temp->tId}}" >{{$temp->tName}}</option>
                 @endforeach
                 </select>
+            </div>
+             <div class="form-group mb-2">
+                <input type="date" name="displayDate" class="form-control" >
             </div>
             <div class="form-group mb-2">
                 <input type="submit" class="btn btn-primary" value="Assign Template">
@@ -112,10 +117,11 @@
 </div>
 @endsection
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
 <script>
     function getGUsers() {
         var gid = $("#gid option:selected").val();
-        alert(gid);
+      
             $.ajaxSetup({
                headers: {
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -144,7 +150,7 @@
 
     function getTUsers() {
         var tid = $("#tid option:selected").val();
-        alert(tid);
+     
         $.ajaxSetup({
                headers: {
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -160,9 +166,7 @@
                 var gd = "";
                 var ud = "";
                 
-                console.log('data',data);
-                console.log('group',data.temp_group);
-                console.log('user',data.temp_user);
+               
                 if(data.temp_group.length == 0){
                     $('#temp_group').html(gd);
                 }
@@ -185,4 +189,7 @@
             }
         });          
     }
+  
+
+
 </script>

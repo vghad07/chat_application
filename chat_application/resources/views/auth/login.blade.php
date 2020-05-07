@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form-horizontal" method="POST" action="{{ route('login') }}" novalidate>
+                                        <form class="form-horizontal" method="POST" action="{{ route('login') }}" autocomplete="off" novalidate>
                                             @csrf
                                             <fieldset class="form-group position-relative has-icon-left">
                                                 <input name="email" type="email" @error('email') is-invalid @enderror class="form-control input-lg" id="email" placeholder="Your Email" value="{{ old('email') }}" tabindex="1" required data-validation-required-message="Please enter your username.">

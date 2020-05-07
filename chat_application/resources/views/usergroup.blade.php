@@ -84,7 +84,7 @@
            });
            $.ajax({
             type: 'POST'
-            , url: "{{route('ajaxReq.getUsers')}}"
+            , url: "{{route('ajaxReq.getGUsers')}}"
             , data: {
               gid: gid
                 

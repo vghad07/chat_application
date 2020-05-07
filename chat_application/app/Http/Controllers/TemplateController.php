@@ -32,32 +32,14 @@ class TemplateController extends Controller
             'timage' =>'image|nullable|max:1999'
            ]);
    
-           if($request->hasFile('timage')){
-   
-               $filenameWithExt = $request->file('timage')->getClientOriginalName();
-   
-               $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
-               $extension = $request->file('timage')->getClientOriginalExtension();
-               $fileNameToStore = $filename.'_'.time().'.'.$extension;
-               $path = $request->file('timage')->move(public_path('images/template'),$fileNameToStore);
-           }
-          
-   
-           $template = new Template;
-           $template->tName = $request->input('tname');
-           $template->tDescription = $request->input('tdescription');
-           $template->tImage = $fileNameToStore;
-           $template->createdBy = $request->input('created_by');
-           $template->createdDate = date('Y-m-d');
-           $template->modifiedDate = now();
-           $template->isDelete = 0;
-           $template->isActive = 1;           
-           $template->save();
+           
+          Template::insert($request);
+           
            
            $isAdmin = auth()->user()->isAdmin;
            if(auth()->user()->id > 0 && $isAdmin ==1 ){
               
-               return redirect('/template/template_list');
+               return redirect()->back();
            }
            
     }
@@ -69,11 +51,17 @@ class TemplateController extends Controller
         return view('template.assign_template')->with('users',$users)->with('groups',$groups)->with('templates',$templates);
     }
     public function addUserGroupTemplate(Request $request){
+
+        
+         $date = str_replace('/', '-', $request->input('displayDate'));
+        $ddate = date('Y-m-d', strtotime($date));
+           
         $users = DB::select('SELECT * FROM users');
          $groups = DB::select('SELECT * FROM tbl_groups');
           $templates = DB::select('SELECT * FROM tbl_templates');
         if($request->session()->get('is_admin')==1 && $request->session()->get('is_active')==1){
         
+           
                     
           $uids = $request->uid;
           $gid = $request->input('gid');
@@ -83,21 +71,24 @@ class TemplateController extends Controller
              if($gus->isUserExists($uid, $gid)){
                  break;
              }
-             else{  
+             else{
                 $tgus = new Template_group_user; 
                 $tgus->tId = $request->input('tid');
                 $tgus->gId = $request->input('gid');
-                $tgus->uId = $uid;               
+                $tgus->uId = $uid;  
+                            
                 $tgus->createdDate = date('Y-m-d');
                 $tgus->modifiedDate = now();
                 $tgus->isDelete = 0;
-                $tgus->isActive = 0;           
+                $tgus->isActive = 0; 
+                $tgus->displayDate = $ddate;           
                 $tgus->save();
-             }
+             } 
          }
         
          return view('template.assign_template')->with('users',$users)->with('groups',$groups)->with('templates',$templates);
         }
     }
+
     
 }

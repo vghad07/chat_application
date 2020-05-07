@@ -9,14 +9,15 @@
                 <div class="sidebar-content card d-none d-lg-block">
                     <div class="card-body chat-fixed-search">
                        <fieldset class="form-group position-relative has-icon-left m-0">
-                           <input type="text" class="form-control" id="iconLeft4" placeholder="Search Group">
+                           <input type="hidden" class="form-control" id="usergroup" placeholder="Search Group">
                            <div class="form-control-position">
-                               <i class="ft-search"></i>
+                        <!--      <i class="ft-search"></i>-->
                            </div>
                        </fieldset>     
             </div>
             <div id="users-list" class="list-group position-relative">
                 <div class="users-list-padding media-list">
+                 
                     @if(count($grps)>0)
                         @foreach($grps as $group)
                             <form>
@@ -24,7 +25,7 @@
                                 <input type="hidden" name="sen_id" value="{{session('user_id')}}">
                                 <input type="hidden" name="rec_id"   value="{{$group->gId}}">
                         
-                               <a href="#" class=" media border-0 btn-submit" data-id="{{$group->gId}}">
+                               <a href="{{url('/groupchat/index')}}/{{$group->gId}}/gch" class=" media border-0 " data-id="{{$group->gId}}">
 
                                 <div class="media-left pr-1">
                                     <span class="avatar avatar-md avatar-online"><img class="media-object rounded-circle" src="{{asset('images')}}/{{session('pic')}}" alt="Generic placeholder image">
@@ -58,10 +59,49 @@
                         <section class="chat-app-window" >
                             <div class="badge badge-default  mb-1">Chat History</div>
                                 <div class="chats" >
-                                    <div class="chats" id="chats_box" >
+                                    <div class="chats" >
+                                     @if(count($chats)>0)
+                                       @foreach($chats as $c)
+                                          @if($c->uId === auth()->user()->id)
+                                       <div class="chat">
+                                            <div class="chat-avatar">
+                                               <a class="avatar" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">
+                                                   <img src="{{asset('images')}}/{{auth()->user()->uImage}}" style="height:25px;width:25px;" alt="avatar" />
+                                                  <span>{{auth()->user()->name}}</span>
+                                               </a>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content" id="chat_sen_msgs">
+                                                   @if($c->chatImage) <img src="{{asset('images/groupchat')}}/{{$c->chatImage}}" style="height:105px;width:125px;" alt="avatar" />
+                                                   @endif <p class="chat_sen_msg">{{$c->chatMessage}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                         @else 
+                                        
+                                        <div class="chat chat-left" id="left_chat_box">
+                                            <div class="chat-avatar">
+                                                <a class="avatar" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="">
+                                                  
+                                             @if($c->uImage)    <img src="{{asset('images')}}/{{$c->uImage}}" style="height:25px;width:25px; margin:2px" alt="avatar" />
+                                                 @endif 
+                                               @if($c->name)     <span>{{$c->name}}</span>@endif
+                                                </a>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content" id="chat_rec_msgs">
+                                                @if($c->chatImage)    <img src="{{asset('images/groupchat')}}/{{$c->chatImage}}" style="height:105px;width:125px;" alt="avatar" />
+                                                  @endif  <p class="chat_rec_msg">{{$c->chatMessage}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                        
+                                        @endif
+                                       @endforeach
+                                     @endif
                                     </div>
-                            </div>
+                               </div>
                         </section>
                         <section class="chat-app-form">
                             {{ Form::open(['action' => ['GroupchatController@groupChatInsert'],'id'=>'ugchatFrm','name'=>'ugchatFrm','class'=>' d-flex','method'=>'POST','enctype'=>'multipart/form-data']) }}
@@ -72,9 +112,9 @@
                                 </div>
                                 <input type="text" class="form-control" id="message" name="message" placeholder="Type your message">
                                 <input type="hidden" name="chat_sen_id" value="{{session('user_id')}}">
-                                <input type="hidden" name="gid">
+                                <input type="hidden" name="sgid" value="{{session('sgid')}}">
                                     <div class="form-control-position control-position-right">
-                                       <i><img src="https://img.icons8.com/office/16/000000/attach.png"/></i>
+                                       <i><img src="{{asset('images')}}/attach.png" /></i>
                                         <input type="file" name="cimage" id="cimage">
                                        
                                     </div>
@@ -91,7 +131,7 @@
 
 @endsection
 
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="{{ asset('app-assets/js/jquery-2.2.4.min.js')}}"></script>
     
 <script type="text/javascript">  
        $(document).ready(function(){
@@ -111,14 +151,17 @@
        $(document).on('click', '.send_frm', function(event) {
        
           // var message = $("input[name=message]").val();
-           var chat_sen_id = $("input[name=chat_sen_id]").val();
-           var gid = $("input[name=gid]").val();
+          
+           var sgid = $("input[name=sgid]").val();
          // var cimage = $("input[name=cimage]").val();          
             var form = $("#ugchatFrm")[0];
           var formData = new FormData(form);
           formData.append('message', $("input[name=message]").val());
-           formData.append('chat_sen_id', $("input[name=chat_sen_id]").val());
-           formData.append('gid',$("input[name=gid]").val());
+           
+           formData.append('sgid',$("input[name=sgid]").val());
+           if( document.getElementById("cimage").files.length > 0 ){
+             formData.append('cimage', $('input[type=file]')[0].files[0]);
+          }
           $.ajaxSetup({
                headers: {
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -132,7 +175,7 @@
              ,  processData: false
             , success: function(data) {                
                 $("#ugchatFrm").trigger("reset");
-                LoadData(gid,chat_sen_id);
+               location.reload();
             }
         });
           return false;
@@ -141,62 +184,5 @@
      
      
      
-       $(document).on('click', '.btn-submit', function(event) {
-          
-           var rec = $(this).attr('data-id');
-           var sen = $("input[name=sen_id]").val();
-                      
-           event.preventDefault();  
-           LoadData(rec,sen);
-           return false;
-      });
        
-      function LoadData(rec,sen){
-         
-                 $.ajaxSetup({
-               headers: {
-               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-               }
-           });
-           $.ajax({
-            type: 'POST'
-            , url: "{{route('groupChatRequest.post')}}"
-            , data: {
-                rec: rec
-                , sen: sen
-
-            }
-            , success: function(data) {
-
-             $("input[name=gid]").val(data.gid);
-            
-             var list ="";
-            
-           console.log(data.users);
-           if(data.gmsg.length == 0){
-            $('#chats_box').html(list);
-            
-           }
-           else{  for(var i=0;i<data.gmsg.length;i++){
-                   if(data.gmsg[i].id==data.gmsg[i].uId){
-                   list += '<div class="chat" id="chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="{{asset('images')}}/{{session('pic')}}" style="height:25px;width:25px;" alt="avatar" /><span>'+data.gmsg[i].name+'</span></a></div><div class="chat-body"><div class="chat-content" id="chat_sen_msgs"><p class="chat_sen_msg">' + data.gmsg[i].chatMessage + '</p></div></div></div>';                
-                  if(data.gmsg[i].chatImage !==null ){
-                    list +='<img src="{{asset('images/groupchat/')}}/'+data.gmsg[i].chatImage+'" style="width:25%;height:25%" />';
-                     }
-                   }
-                   else
-                   {
-                   list += '<div class="chat chat-left" id="left_chat_box"><div class="chat-avatar"><a class="avatar" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title=""><img src="{{asset('images/')}}/'+data.gmsg[i].uImage+'" style="height:25px;width:25px; margin:2px" alt="avatar" /><span>'+data.gmsg[i].name+'</span></a></div><div class="chat-body"><div class="chat-content" id="chat_rec_msgs"><p class="chat_rec_msg">' + data.gmsg[i].chatMessage + '</p></div></div></div>';
-                  if(data.gmsg[i].chatImage !==null ){
-                    list +='<img src="{{asset('images/groupchat/')}}/'+data.gmsg[i].chatImage+'" style="width:25%;height:25%" />';
-                     }
-                   }
-             }
-             
-                 
-           }
-          $('#chats_box').html(list);
-            }
-          });
-        }
 </script>

@@ -24,20 +24,24 @@ class AjaxController extends Controller
 
         
     }
+   
     public function ajaxRequestPost(Request $request)
     {
 
        //$sender =  $request->input('sen');
        $receiver =   $request->input('rec');
+													   
        $chat_s=[];
       
-       $chat_s = DB::select("SELECT * FROM tbl_chat where (senderId=".$request->session()->get('user_id')." AND receiverId=". $receiver.") OR (senderId=". $receiver." AND receiverId=".$request->session()->get('user_id').") Order By modifiedDate desc");
-       $cns = 0;
+       $chat_s = DB::select("SELECT * FROM tbl_chat where (senderId=".auth()->user()->id." AND receiverId=". $receiver.") OR (senderId=". $receiver." AND receiverId=".auth()->user()->id.") Order By modifiedDate desc");
+			 $cns = 0;
     
        $user = User::find($receiver);  
        $cns = count($chat_s);
      
-         if($cns >= 1){        
+         if($cns >= 1){ 	   
+																						   
+															   
           return response()->json(['cns'=>$cns,'name'=>$user->name,'uimage'=>$user->uImage,'rid'=>$receiver,'smsg'=> $chat_s,'success'=>'Success Message Request.']);
          }
          else{
@@ -48,6 +52,8 @@ class AjaxController extends Controller
        
     }
     public function ajaxRequestsPost(Request $request){
+
+      
       $fileNameToStore = null;
      if($request->hasFile('cimage')){
    
@@ -65,8 +71,8 @@ class AjaxController extends Controller
         }
       }
            $chat = new Chat;
-           $chat->senderId = $request->input('chat_sen_id');
-           $chat->receiverId = $request->input('chat_rec_id');           
+           $chat->senderId = auth()->user()->id;                //$request->input('chat_sen_id');
+           $chat->receiverId =   $request->chat_rec_id;                          //$request->input('chat_rec_id');           
            $chat->message = (empty($request->input('message'))) ? '': $request->input('message');
                  
            $chat->chatImage = $fileNameToStore;      
@@ -77,7 +83,7 @@ class AjaxController extends Controller
            $isAdmin = auth()->user()->isAdmin;
             
             if($user_id > 0 && $isAdmin ==1 ){           
-               return response()->json(['res'=>1,'success'=>'Success Message Added success Request.']);
+               return redirect()->back();
            }
           
                 

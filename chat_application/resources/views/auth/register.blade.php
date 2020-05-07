@@ -89,10 +89,11 @@
 
                                     </div>
                                     <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2"><span>Please Sign Up</span></h6>
+                                       {{ $msg ?? '' }}
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form-horizontal" method="POST" action="{{ route('register') }}" novalidate>
+                                        <form class="form-horizontal" method="POST" action="{{ route('register') }}" autocomplete="off" novalidate>
                                             @csrf
                                             <div class="row">
                                                 <div class="col-12 col-sm-6 col-md-6">
