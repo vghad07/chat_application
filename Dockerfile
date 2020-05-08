@@ -1,28 +1,15 @@
-FROM php:7.2.10-apache-stretch
-
-RUN apt-get update -yqq && \
-  apt-get install -y apt-utils zip unzip && \
-  apt-get install -y nano && \
-  apt-get install -y libzip-dev && \
-  a2enmod rewrite && \
-  docker-php-ext-install mysqli pdo pdo_mysql && \
-  docker-php-ext-configure zip --with-libzip && \
-  docker-php-ext-install zip && \
-  rm -rf /var/lib/apt/lists/*
-
-RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
-
-ADD ./chat_application /var/www/html/
-
-RUN php -d memory_limit=-1 /usr/bin/composer install
-
+FROM php:7.3-apache
+#Install git
+RUN apt-get update \
+    &amp;&amp; apt-get install -y git
+RUN docker-php-ext-install pdo pdo_mysql mysqli
+RUN a2enmod rewrite
+#Install Composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php --install-dir=. --filename=composer
+RUN mv composer /usr/local/bin/
+COPY ./chat_application /var/www/html/
 RUN php artisan migrate
-
-#change ownership of our applications
-RUN chown -R www-data:www-data /var/www/html
-
-WORKDIR /var/www/html
-
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
-
+RUN php artisan optimize:clear
+CMD php artisan serve --host=0.0.0.0 --port=80
 EXPOSE 80
