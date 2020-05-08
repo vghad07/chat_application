@@ -12,5 +12,4 @@ COPY ./chat_application /var/www/html/
 WORKDIR /var/www/html/chat_application/
 CMD php artisan migrate
 CMD php artisan optimize:clear
-CMD php artisan serve --host=0.0.0.0 --port=80
 EXPOSE 80
