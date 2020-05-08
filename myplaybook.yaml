@@ -5,41 +5,52 @@
   become_user: root
   become_method: sudo
   tasks:
-    - name: Install apache packages
-      apt:
-        name: apache2
-        state: present
-    - name: Copy php application on application server
-      synchronize:
-        src: ./chat_application
-        dest: /var/www/html
-    - name: Ensure apache is running
-      service:
-        name: apache2
-        state: started
-    - name: Install Composer
-      composer:
+  - name: Install apache packages
+    apt:
+      name: apache2
+      state: present
+  - name: Copy php application on application server
+    synchronize:
+      src: ./chat_application
+      dest: /var/www/html
+  - name: Ensure apache is running
+    service:
+      name: apache2
+      state: started
+  - name: Install Composer
+    composer:
         command: install
         working_dir: /var/www/html/chat_application
-    - name: Allocate memory limit to composer
-      shell: php -d memory_limit=-1 /usr/bin/composer install
-      args:
+  - name: Allocate memory limit to composer
+    shell: php -d memory_limit=-1 /usr/bin/composer install
+    args:
         chdir: /var/www/html/chat_application
         executable: /bin/bash
         warn: no
-    - name: Make php site maintance mode
-      command: php artisan down
-      args:
+  - name: clear All cache
+    command: php artisan optimize:clear
+    args:
+        chdir: /var/www/html/chat_application
+        warn: no 
+  - name: Migrate database changes
+    command: php artisan migrate
+    args:
+        chdir: /var/www/html/chat_application
+        warn: no 
+  - name: Make php site maintance mode
+    command: php artisan down
+    args:
         chdir: /var/www/html/chat_application
         warn: no
-    - name: Make php site in live mode
-      command: php artisan up
-      args:
+  - name: Make php site in live mode
+    command: php artisan up
+    args:
         chdir: /var/www/html/chat_application
         warn: no
-    - name: php application running on port - localhost:8080
-      shell: php artisan serve --host=0.0.0.0 --port=8080
-      args:
+  - name: php application running on port - localhost:8080
+    shell: php artisan serve --host=0.0.0.0 --port=8080
+    args:
         chdir: /var/www/html/chat_application
         executable: /bin/bash
         warn: no
+
