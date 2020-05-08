@@ -9,6 +9,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=. --filename=composer
 RUN mv composer /usr/local/bin/
 COPY ./chat_application /var/www/html/
+WORKDIR /var/www/html/chat_application
 RUN php artisan migrate:fresh
 RUN php artisan optimize:clear
 CMD php artisan serve --host=0.0.0.0 --port=80
