@@ -75,7 +75,7 @@ class HomeController extends Controller
 		    
 			$mail->SMTPSecure = 'tls'; 
 			$mail->Host = 'smtp.gmail.com';
-            //$mail->send();
+            $mail->send();
             $msg= "Email is not verified.Please verify your email";
 		     return view('auth.login')->with('msg',$msg);
 		   } catch (Exception $e) {
