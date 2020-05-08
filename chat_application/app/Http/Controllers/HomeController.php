@@ -70,7 +70,7 @@ class HomeController extends Controller
 		    $mail->isHTML(true);                                  
 		    $mail->Subject = 'Message : '.$subject;
             $mail->Body    = "<div style='padding-top:10px;'>Please Verify Your Email By click On Activate now
-                              </div><div> <a href='http://localhost/chat_application/public/verifymail/activate/$activationcode/activateEmail' class='btn btn-primary'>Activate now</a></div>";
+                              </div><div> <a href='http://54.174.202.127:8080/verifymail/activate/$activationcode/activateEmail' class='btn btn-primary'>Activate now</a></div>";
 		    
 		    
 			$mail->SMTPSecure = 'tls'; 
