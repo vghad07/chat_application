@@ -10,5 +10,8 @@ RUN php composer-setup.php --install-dir=. --filename=composer
 RUN mv composer /usr/local/bin/
 COPY ./chat_application /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
-WORKDIR /var/www/html/chat_application/
+WORKDIR /var/www/html/
+RUN php -d memory_limit=-1 /usr/bin/composer install
+RUN php artisan migrate
+RUN php artisan optimize:clear
 EXPOSE 80
