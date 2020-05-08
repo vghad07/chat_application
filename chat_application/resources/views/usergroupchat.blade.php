@@ -45,6 +45,7 @@
                                </a>
                             </form>
                         @endforeach
+                        @else<div>No Groups are available</div>
                     @endif
 
                 </div>
@@ -99,6 +100,8 @@
                                        
                                         @endif
                                        @endforeach
+                                      
+                                     
                                      @endif
                                     </div>
                                </div>
@@ -114,7 +117,7 @@
                                 <input type="hidden" name="chat_sen_id" value="{{session('user_id')}}">
                                 <input type="hidden" name="sgid" value="{{session('sgid')}}">
                                     <div class="form-control-position control-position-right">
-                                       <i><img src="{{asset('images')}}/attach.png" /></i>
+                                       <i><img  class="fl" src="{{asset('images')}}/attach.png" /></i>
                                         <input type="file" name="cimage" id="cimage">
                                        
                                     </div>
@@ -143,7 +146,7 @@
        });
      
        
-        $(document).on('click', 'i', function(event){
+        $(document).on('click', '.fl', function(event){
             $("input[type='file']").trigger('click');
         });
 

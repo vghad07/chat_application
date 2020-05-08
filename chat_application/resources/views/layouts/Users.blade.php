@@ -12,9 +12,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Chat Application</title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png')}}">
-    <link rel="shortcut icon" type="image/x-icon" href="https://pixinvent.com/bootstrap-admin-template/robust/app-assets/images/ico/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CMuli:300,400,500,700" rel="stylesheet">
-    <!-- BEGIN VENDOR CSS-->
+   
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/vendors.min.css')}}">
  
  
@@ -42,7 +40,7 @@
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
                     <li class="nav-item"><a class="navbar-brand" href="index.html">
-                            <h3 class="brand-text">{{auth()->user()->name}}User</h3>
+                         @if(session('name'))   <h3 class="brand-text">{{session('name')}}User</h3>@endif
                         </a></li>
                     <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li>
                 </ul>
@@ -55,10 +53,10 @@
                             <li class="nav-item d-none d-md-block col-md-2"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"> </i></a></li>
                             <li class="col-md-3"></li>
                             <li class="dropdown dropdown-user nav-item col-md-7 float-right"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                   @if(auth()->user()->uImage)
-                                    <span class="avatar avatar-online"><img src="{{asset('images')}}/{{auth()->user()->uImage}}" ><i></i></span>
-                                  @endif
-                                    <span class="user-name">{{auth()->user()->name}}</span></a>
+                                   
+                                    <span class="avatar avatar-online">@if(session('pic'))<img src="{{asset('images')}}/{{session('pic')}}" >@endif<i></i></span>
+                                  
+                                    <span class="user-name">{{session('name')}}</span></a>
                                 <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{ url('/users/user_profile') }}"><i class="ft-user"></i> Edit Profile</a>
 
                                     <a class="dropdown-item" href="{{url('chat/index') }}"><i class="ft-message-square"></i> Chats</a>

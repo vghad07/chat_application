@@ -48,6 +48,7 @@ Route::get('/chat/index', 'ChatController@index');
 
 Route::post('/chat/index', 'ChatController@insert');
 Route::get('/chat/index/{rid}/ch', 'ChatController@display');
+Route::post('/ajaxchatRequest', 'TemplateController@temp')->name('ajaxchatRequest.temp');
 Route::get('/groupchat/index/{gid}/gch', 'GroupchatController@display');
 //Route::get('/ajax/ajaxgetRequests', 'AjaxController@search')->name('ajaxgetRequests.search');;
 Route::get('/chat/group', 'ChatController@group');
@@ -66,6 +67,10 @@ Route::post('/groupchat/groupchatRequests', 'GroupchatController@groupchatReques
 
 Route::get('/template/template_list', 'TemplateController@index');
 Route::get('/template/create', 'TemplateController@create');
+Route::get('/template/edit/{id}', 'TemplateController@edit');
+Route::get('/template/delete/{id}', 'TemplateController@destroy');
+Route::get('/template/activate/{id}', 'TemplateController@activate');
+Route::get('/template/deactivate/{id}', 'TemplateController@deactivate');
 Route::post('/template/template_list', 'TemplateController@insert');
 Route::get('/template/assign', 'TemplateController@assign');
 Route::post('/template/assign', 'TemplateController@addUserGroupTemplate');

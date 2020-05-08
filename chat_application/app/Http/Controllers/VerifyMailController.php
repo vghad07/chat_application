@@ -40,6 +40,6 @@ class VerifyMailController extends Controller
          $msg ="Wrong activation code.";
        }
 
-       return view('auth.login')->with('msg',$msg);
+       return redirect()->back()->with('msg',$msg);
 }
 }

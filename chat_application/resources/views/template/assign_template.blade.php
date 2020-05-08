@@ -35,88 +35,79 @@
             <div class="form-group mb-2">
                 <input type="submit" class="btn btn-primary" value="Assign Template">
             </div>
-         </div>
-      
-        <div class="row"> 
-            <div class="col-sm-2">   
-                <span>All Users </span>  
-                <table  class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="uid[]" value="{{$user->id}}" class="input-chk">
-                        </td>
-                        <td>
-                            <div class="media">
-                            <div class="media-left pr-1"></div>
-                                <div class="media-body media-middle">
-                                    <a href="#" class="media-heading">{{$user->name}}</a>
-                                </div>
+     </div>
+    <div class="row">
+        <div class="col-md-3">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($users as $user)
+                <tr>
+                    <td>
+                       <input type="checkbox" name="uid[]" value="{{$user->id}}" class="input-chk">
+                    </td>
+                     <td>
+                        <div class="media">
+                         <div class="media-left pr-1"></div>
+                            <div class="media-body media-middle">
+                                <a href="#" class="media-heading">{{$user->name}}</a>
                             </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                </table>
-           
-            </div>
-         </div>
-         <div class="row">
-            <div class="col-md-2"> 
-                <span>Group Users </span>     
-                <table class="table  table-bordered " >
-                <thead>
-                    <tr>
-                        
-                        <th>Name</th>
-                    </tr>
-                </thead>
-                <tbody id="group_usr">
-                </tbody>
-                </table>
-            </div>
-              </div>
-              
-             <div class="col-md-2"> 
-                 <span>Groups  </span>     
-                <table class="table table-bordered " >
-                <thead>
-                    <tr>
-                        
-                        <th>Group Name</th>
-                       
-                    </tr>
-                </thead>
-                <tbody id="temp_group">
-                 </tbody>
-                </table>
-            </div>
-             <div class="col-md-2"> 
-                <span>Users </span>     
-                <table class="table table-bordered " >
-                <thead>
-                    <tr>                                               
-                        <th>User Name</th>
-                    </tr>
-                </thead>
-                <tbody id="temp_user">
-                 </tbody>
-                </table>
-            </div>
-            </div>
+                         </div>
+                     </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        </div>
+        <div class="col-md-3">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody id="group_usr">
+            </tbody>
+        </table>
+        </div>
+    
+        <div class="col-md-3">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>Group Name</th>
+            </tr>
+            </thead>
+             <tbody id="temp_group">
+            </tbody>
+        </table>
+        </div>
+        <div class="col-md-3">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>                                               
+                    <th>User Name</th>
+                </tr>
+            </thead>
+            <tbody id="temp_user">
+            </tbody>
+        </table>
+        </div>
+
+            
+            
+    </div>
       
        
  {{Form::close()}}
 </div>
 @endsection
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="{{ asset('app-assets/js/jquery-2.2.4.min.js')}}"></script>
 
 <script>
     function getGUsers() {

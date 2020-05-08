@@ -8,7 +8,7 @@
          <div class="row breadcrumbs-top d-inline-block">
              <div class="breadcrumb-wrapper col-12">
                  <ol class="breadcrumb">
-                     <li class="breadcrumb-item"><a href="#">Home</a>
+                     <li class="breadcrumb-item"><a href="{{url('/home')}}">Home</a>
                      </li>
                      <li class="breadcrumb-item"><a href="#">Templates</a>
                      </li>
@@ -39,14 +39,14 @@
                          <div class="card-body">
                              <!-- Task List table -->
                              <div class="table-responsive">
-                                 <table id="users-contacts"  class="table table-white-space  ">
-                                     <thead>
+                                 <table id="users-contacts"  class="table   ">
+                                     <thead class="thead-dark">
                                          <tr>
-                                             <th></th>
-                                             <th>Template</th>
+                                             <th ></th>
+                                             <th >Template</th>
                                              <th> Description</th>
-                                             <th>Template Image</th>
-                                             <th>Actions</th>
+                                             <th >Template Image</th>
+                                             <th >Actions</th>
                                          </tr>
                                      </thead>
                                      <tbody>
@@ -62,8 +62,8 @@
                                                      </div>
                                                  </div>
                                              </td>
-                                             <td class="text-center">
-                                                 <a href="#">{{$temp->tDescription}}</a>
+                                             <td >
+                                                 {{$temp->tDescription}}
                                              </td>
                                              <td class="text-center">
 
@@ -72,15 +72,15 @@
                                              </td>
 
                                              <td>
-                                                 <span class="dropdown">
-                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right"><i class="ft-settings"></i></button>
-                                                     <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                         <a href="{{url('/template/template_list/edit')}}/{{$temp->tId}}" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
-                                                         <a href="{{ url('/template/template_list/delete') }}/{{$temp->tId}}" class="dropdown-item"><i class="ft-trash-2"></i> Delete</a>
-                                                         <a href="{{ url('/template/template_list/activate') }}/{{$temp->tId}}" class="dropdown-item"><i class="ft-trash-2"></i> Activate</a>
-                                                         <a href="{{ url('/template/template_list/deactivate') }}/{{$temp->tId}}" class="dropdown-item"><i class="ft-trash-2"></i> Deactivate</a>
+                                                 <div class="dropdown">
+                                                     <button id="btnSearchDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right"><i class="ft-settings"></i></button>
+                                                     <span aria-labelledby="btnSearchDrop1" class="dropdown-menu mt-2 dropdown-menu-right">
+                                                         <a href="{{url('/template/edit')}}/{{$temp->tId}}" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+                                                         <a href="{{ url('/template/delete') }}/{{$temp->tId}}" class="dropdown-item"><i class="ft-trash-2"></i> Delete</a>
+                                                         <a href="{{ url('/template/activate') }}/{{$temp->tId}}" class="dropdown-item"><i class="ft-edit-2"></i> Activate</a>
+                                                         <a href="{{ url('/template/deactivate') }}/{{$temp->tId}}" class="dropdown-item"><i class="ft-trash-2"></i> Deactivate</a>
                                                      </span>
-                                                 </span>
+                                                 </div>
                                              </td>
                                          </tr>
                                          @endforeach

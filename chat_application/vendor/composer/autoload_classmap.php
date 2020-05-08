@@ -30,6 +30,7 @@ return array(
     'App\\Http\\Controllers\\PostsController' => $baseDir . '/app/Http/Controllers/PostsController.php',
     'App\\Http\\Controllers\\TemplateController' => $baseDir . '/app/Http/Controllers/TemplateController.php',
     'App\\Http\\Controllers\\UsersController' => $baseDir . '/app/Http/Controllers/UsersController.php',
+    'App\\Http\\Controllers\\VerifyMailController' => $baseDir . '/app/Http/Controllers/VerifyMailController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',

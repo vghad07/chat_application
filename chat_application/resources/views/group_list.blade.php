@@ -8,7 +8,7 @@
          <div class="row breadcrumbs-top d-inline-block">
              <div class="breadcrumb-wrapper col-12">
                  <ol class="breadcrumb">
-                     <li class="breadcrumb-item"><a href="#">Home</a>
+                     <li class="breadcrumb-item"><a href="{{url('/home')}}">Home</a>
                      </li>
                      <li class="breadcrumb-item"><a href="#">Groups</a>
                      </li>
@@ -32,14 +32,7 @@
 
                                  <a class="btn btn-primary btn-sm" href="{{url('group/create') }}"><i class="ft-plus white"></i> Add Group</a>
                                   <a class="btn btn-primary btn-sm" href="{{url('group/usergroup') }}"><i class="ft-plus white"></i> Assign Group</a>
-                                 <span class="dropdown">
-                                     <button id="btnSearchDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-warning dropdown-toggle dropdown-menu-right btn-sm"><i class="ft-download-cloud white"></i></button>
-                                     <span aria-labelledby="btnSearchDrop1" class="dropdown-menu mt-1 dropdown-menu-right">
-                                         <a href="#" class="dropdown-item"><i class="ft-upload"></i> Import</a>
-                                         <a href="#" class="dropdown-item"><i class="ft-download"></i> Export</a>
-                                         <a href="#" class="dropdown-item"><i class="ft-shuffle"></i> Find Duplicate</a>
-                                     </span>
-                                 </span>
+                                 
 
                              </div>
                          </div>
@@ -49,7 +42,7 @@
                              <!-- Task List table -->
                              <div class="table-responsive">
                                  <table id="users-contacts" class="table table-white-space table-bordered row-grouping display no-wrap icheck table-middle">
-                                     <thead>
+                                     <thead class="thead-dark">
                                          <tr>
                                              <th></th>
                                              <th>Group Name</th>
@@ -65,7 +58,7 @@
                                              <td><input type="checkbox" class="input-chk"></td>
                                              <td>
                                                  <div class="media">
-                                                     <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle"><img src="{{ asset('images')}}/{{$group->gImage}}" alt="avatar"><i></i></span></div>
+                                                     <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle">@if($group->gImage)<img src="{{ asset('images')}}/{{$group->gImage}}" >@endif<i></i></span></div>
                                                      <div class="media-body media-middle">
                                                          <a href="#" class="media-heading">{{$group->gName}}</a>
                                                      </div>
@@ -76,7 +69,7 @@
                                              </td>
                                              <td class="text-center">
 
-                                                 <img style="width:50%" src="{{asset('images')}}/{{$group->gImage}}" alt="Group Image">
+                                                 <img style="width:50%" src="{{asset('images')}}/{{$group->gImage}}" >
 
                                              </td>
 
@@ -94,15 +87,7 @@
                                          @endforeach
                                          @endif
                                      </tbody>
-                                     <tfoot>
-                                         <tr>
-                                             <th></th>
-                                             <th>Group Name</th>
-                                             <th>Group Description</th>
-                                             <th>Group Image</th>
-                                             <th>Actions</th>
-                                         </tr>
-                                     </tfoot>
+                                     
                                  </table>
                                  {{$groups->links()}}
                              </div>

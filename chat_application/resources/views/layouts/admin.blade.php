@@ -16,12 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CMuli:300,400,500,700" rel="stylesheet">
    <!-- BEGIN VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/vendors.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/jquery-jvectormap-2.0.3.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/morris.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/unslider.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/weather-icons/climacons.min.css')}}">
-    <!-- END VENDOR CSS-->
-    <!-- BEGIN ROBUST CSS-->																										  
+    																										  
 	<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/app.min.css')}}">
     <!-- END ROBUST CSS-->
     <!-- BEGIN Page Level CSS-->
@@ -30,7 +25,7 @@
   
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/calendars/clndr.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/fonts/meteocons/style.min.css')}}">
-    
+      <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/chat-application.css')}}">
    
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css')}}">
     <!-- END Custom CSS-->
@@ -62,10 +57,10 @@
                             <li class="nav-item d-none d-md-block col-md-2"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"> </i></a></li>
                             <li class="col-md-3"></li>
                             <li class="dropdown dropdown-user nav-item col-md-7 float-right"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                  
-                                    <span class="avatar avatar-online"> @if(auth()->user()->uImage)<img src="{{asset('images')}}/{{auth()->user()->uImage}}" ><i></i>@endif</span>
                                    
-                                    <span class="user-name"> {{auth()->user()->name}}</span></a>
+                                    <span class="avatar avatar-online">@if(session('pic'))<img src="{{asset('images')}}/{{session('pic')}}" >@endif<i></i></span>
+                                  
+                                    <span class="user-name">{{session('name')}}</span></a>
                                 <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{ url('/users/user_profile') }}"><i class="ft-user"></i> Edit Profile</a>
 
                                     <a class="dropdown-item" href="{{url('chat/index') }}"><i class="ft-message-square"></i> Chats</a>
@@ -114,10 +109,10 @@
     </div>
 
     <div class="app-content content">
-        <div class="content-wrapper">
+        
            @include('inc.message')
              @yield('content')
-        </div>
+       
     </div>
    
 

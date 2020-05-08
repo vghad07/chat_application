@@ -24,12 +24,13 @@
                         
                                <a href="{{url('/chat/index')}}/{{$user->id}}/ch" class=" media border-0 " data-id="{{$user->id}}">
                                    <div class="media-left pr-1">
-                                       <span class="avatar avatar-md avatar-busy">
-                                           <img class="media-object rounded-circle" src="{{asset('images')}}/{{$user->uImage}}" alt="Generic placeholder image">
+                                    <span class="avatar avatar-md avatar-online"> 
+                                   @if($user->uImage)         <img class="media-object rounded-circle" src="{{asset('images')}}/{{$user->uImage}}"> @endif
                                            <i></i>
                                        </span>
                                        <input type="hidden" name="sen_id" value="{{session('user_id')}}">
                                 <input type="hidden" name="rec_id"  value="{{$user->id}}">
+
                                    </div>
                                     <div class="media-body w-100">
                                        <h6 class="list-group-item-heading">{{$user->name}}
@@ -112,7 +113,7 @@
                         {{$chats->links()}}
                         @endif
                         <section class="chat-app-form">
-                            {{ Form::open(['action' => ['ChatController@insert'],'id'=>'uchatFrm','name'=>'uchatFrm','class'=>'chat-app-input d-flex','method'=>'POST','enctype'=>'multipart/form-data']) }}
+                             <form enctype ='multipart/form-data' id ="uchatFrm" action="{{action('ChatController@insert')}}" method="POST">
                             @csrf
                             <fieldset class="form-group position-relative has-icon-left col-10 m-0">
                                 <div class="form-control-position">
@@ -128,7 +129,7 @@
                                     </div>
                             </fieldset>
                             <fieldset class="form-group position-relative has-icon-left col-2 m-0">
-                                <button type="button" class="btn btn-info send_frm "><i class="fa fa-paper-plane-o d-lg-none"></i> <span class="d-none d-lg-block">Send</span></button>
+                                <button type="submit" class="btn btn-info  "><i class="fa fa-paper-plane-o d-lg-none"></i> <span class="d-none d-lg-block">Send</span></button>
                             </fieldset>
                           </form>
                         </section>
@@ -145,12 +146,10 @@
             $("input[type='file']").trigger('click');
         });
         
-    setTimeout(function() {
-                $("#tmp_msg").hide('blind', {}, 500)
-                }, 5000);
+    
    $(document).on('click', '.send_frm', function(event) {
        
-                    
+                    event.preventDefault();
             var form = $("#uchatFrm")[0];
           var formData = new FormData(form);
           formData.append('message', $("input[name=message]").val());
@@ -172,7 +171,7 @@
              ,  processData: false
             , success: function(data) {                
                 $("#uchatFrm").trigger("reset");
-                location.reload();
+                //location.reload();
               //  LoadData(chat_rec_id,chat_sen_id);
             }
         });

@@ -10,7 +10,7 @@
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Demo Project</title>
+    <title>Chat Application</title>
     
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/vendors.min.css')}}">
     																										  
@@ -34,7 +34,7 @@
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
                     <li class="nav-item"><a class="navbar-brand" href="index.html">
-                            <h3 class="brand-text">{{session('name')}}(Admin)</h3>
+                            <h3 class="brand-text">{{auth()->user()->name}}(Admin)</h3>
                         </a></li>
                     <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li>
                 </ul>
@@ -47,8 +47,10 @@
                             <li class="nav-item d-none d-md-block col-md-2"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"> </i></a></li>
                             <li class="col-md-3"></li>
                             <li class="dropdown dropdown-user nav-item col-md-7 float-right"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                    <span class="avatar avatar-online"><img src="{{asset('images')}}/{{session('pic')}}" alt="avatar"><i></i></span>
-                                    <span class="user-name"> {{session('name')}}</span></a>
+                                   
+                                    <span class="avatar avatar-online">@if(session('pic'))<img src="{{asset('images')}}/{{session('pic')}}" >@endif<i></i></span>
+                                  
+                                    <span class="user-name">{{session('name')}}</span></a>
                                 <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{ url('/users/user_profile') }}"><i class="ft-user"></i> Edit Profile</a>
 
                                     <a class="dropdown-item" href="{{url('chat/index') }}"><i class="ft-message-square"></i> Chats</a>
@@ -102,7 +104,7 @@
             <div class="content-wrapper">
                 <div class="content-header row"></div>
                     <div class="content-body">
-                       
+                       <h4 class="card-title">Add Template</h4>
                         <section class="template-form">
                             {{ Form::open(['action' => ['TemplateController@insert'],'id'=>'templateFrm','name'=>'templateFrm','method'=>'POST','enctype'=>'multipart/form-data']) }}
                              @csrf
@@ -148,7 +150,10 @@
 
    
 </script> 
-    
+ <script src="{{ asset('app-assets/vendors/js/vendors.min.js')}}"></script>   
+   <script src="{{ asset('app-assets/js/core/app-menu.min.js')}}"></script>
+    <script src="{{ asset('app-assets/js/core/app.min.js')}}"></script>
+    <script src="{{ asset('app-assets/js/scripts/customizer.min.js')}}"></script>
     
 </body>
 

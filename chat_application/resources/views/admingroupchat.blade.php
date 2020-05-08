@@ -48,6 +48,8 @@
                                </a>
                             </form>
                         @endforeach
+                        @else
+                        <div>No Groups are Available</div>
                     @endif
 
                 </div>
@@ -64,8 +66,8 @@
                                 <div class="chats" >
                                     <div class="chats" >
                                     <div class="chats" >
-                                     @if(count($chats ?? '')>0)
-                                       @foreach($chats ?? '' as $c)
+                                     @if(count($chats)>0)
+                                       @foreach($chats as $c)
                                           @if($c->uId === auth()->user()->id)
                                        <div class="chat">
                                             <div class="chat-avatar">
@@ -102,7 +104,9 @@
                                         </div>
                                         @endif
                                        @endforeach
+                                 
                                      @endif
+
                                     </div>
                                </div>
                                </div>
@@ -118,7 +122,7 @@
                                 <input type="hidden" name="chat_sen_id" value="{{session('user_id')}}">
                                 <input type="hidden" name="sgid" value="{{session('sgid')}}">
                                     <div class="form-control-position control-position-right">
-                                       <i><img src="{{asset('images')}}/attach.png" /></i>
+                                       <i><imgc class="fl" src="{{asset('images')}}/attach.png" /></i>
                                         <input type="file" name="cimage" id="cimage">
                                        
                                     </div>
@@ -142,12 +146,12 @@
            setTimeout(function() {
           var chat_sen_id = $("input[name=chat_sen_id]").val();
            var gid = $("input[name=gid]").val();
-           LoadData(gid,chat_sen_id);
+         //  LoadData(gid,chat_sen_id);
             }, 2000);
        });
      
        
-        $(document).on('click', 'i', function(event){
+        $(document).on('click', '.fl', function(event){
             $("input[type='file']").trigger('click');
         });
 

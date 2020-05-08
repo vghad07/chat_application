@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 
@@ -137,21 +138,16 @@
             </div>
         </div>
     </div>
-    
-
-
     <footer class="footer fixed-bottom footer-dark navbar-border">
         <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2020 <a class="text-bold-800 grey darken-2" href="#" target="_blank">ABC </a>, All rights reserved. </span><span class="float-md-right d-block d-md-inline-blockd-none d-lg-block"> <i class="ft-heart pink"></i></span></p>
     </footer>
 
     <!-- BEGIN VENDOR JS-->
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js')}}"></script>
-    <!-- BEGIN VENDOR JS-->
-    <!-- BEGIN PAGE VENDOR JS-->
+   
     <script src="{{ asset('app-assets/vendors/js/forms/validation/jqBootstrapValidation.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/forms/icheck/icheck.min.js')}}"></script>
-    <!-- END PAGE VENDOR JS-->
-    <!-- BEGIN ROBUST JS-->
+   
     <script src="{{ asset('app-assets/js/core/app-menu.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/core/app.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/scripts/customizer.min.js')}}"></script>
@@ -166,3 +162,8 @@
 
 <!-- Mirrored from pixinvent.com/bootstrap-admin-template/robust/html/ltr/vertical-menu-template/login-advanced.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Apr 2020 10:36:33 GMT -->
 </html>
+
+
+    </body>
+    </html>
+

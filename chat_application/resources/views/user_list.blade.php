@@ -8,9 +8,9 @@
          <div class="row breadcrumbs-top d-inline-block">
              <div class="breadcrumb-wrapper col-12">
                  <ol class="breadcrumb">
-                     <li class="breadcrumb-item"><a href="#">Home</a>
+                     <li class="breadcrumb-item"><a href="{{url('/home')}}">Home</a>
                      </li>
-                     <li class="breadcrumb-item"><a href="#">Users</a>
+                     <li class="breadcrumb-item"><a href="{{url('users/user_list')}}">Users</a>
                      </li>
 
                  </ol>
@@ -31,14 +31,7 @@
                              <div class="heading-elements">
 
                                  <a class="btn btn-primary btn-sm" href="{{url('users/create') }}"><i class="ft-plus white"></i> Add User</a>
-                                 <span class="dropdown">
-                                     <button id="btnSearchDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-warning dropdown-toggle dropdown-menu-right btn-sm"><i class="ft-download-cloud white"></i></button>
-                                     <span aria-labelledby="btnSearchDrop1" class="dropdown-menu mt-1 dropdown-menu-right">
-                                         <a href="#" class="dropdown-item"><i class="ft-upload"></i> Import</a>
-                                         <a href="#" class="dropdown-item"><i class="ft-download"></i> Export</a>
-                                         <a href="#" class="dropdown-item"><i class="ft-shuffle"></i> Find Duplicate</a>
-                                     </span>
-                                 </span>
+                                
 
                              </div>
                          </div>
@@ -63,7 +56,7 @@
                                              <td><input type="checkbox" class="input-chk"></td>
                                              <td>
                                                  <div class="media">
-                                                     <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle"><img src="{{ asset('images')}}/{{$user->uImage}}" alt="avatar"><i></i></span></div>
+                                                     <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle">@if($user->uImage)<img src="{{ asset('images')}}/{{$user->uImage}}">@endif<i></i></span></div>
                                                      <div class="media-body media-middle">
                                                          <a href="#" class="media-heading">{{$user->name}}</a>
                                                      </div>
@@ -88,6 +81,8 @@
                                              </td>
                                          </tr>
                                          @endforeach
+                                         @else
+                                         <div>No users are Available</div>
                                          @endif
 
                                      </tbody>
