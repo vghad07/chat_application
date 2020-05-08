@@ -65,7 +65,7 @@ public function index(){
                 
             
             // $chats = DB::select("SELECT * FROM tbl_group_chat where  gId=". $request->gid." Order By modifiedDate desc");
-          $chats = DB::select('select tgc.*,tgu.uId,u.id,u.name,u.uImage from tbl_group_user tgu  inner join tbl_group_chat tgc on(tgc.gId=tgu.gId) inner join users u on u.id = tgc.uId where tgc.gId='.$receiver.'  Group by tgc.gcId  order by modifiedDate desc'); 
+          $chats = DB::select('select tgc.*,tgu.uId,u.id,u.name,u.uImage from tbl_group_user tgu  inner join tbl_group_chat tgc on(tgc.gId=tgu.gId) inner join users u on u.id = tgc.uId where tgc.gId='.$receiver.'  Group by tgc.gcId '); 
         
            
            $cns = count($grps); 
