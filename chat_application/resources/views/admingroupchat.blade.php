@@ -31,7 +31,7 @@
                                <a href="{{url('/groupchat/index')}}/{{$group->gId}}/gch" class=" media border-0 " data-id="{{$group->gId}}">
 
                                 <div class="media-left pr-1">
-                                    <span class="avatar avatar-md avatar-online"><img class="media-object rounded-circle" src="{{asset('images')}}/{{session('pic')}}" alt="Generic placeholder image">
+                                    <span class="avatar avatar-md avatar-online">@if($group->gImage)<img class="media-object rounded-circle" src="{{asset('images')}}/{{$group->gImage}}">@endif
                                         <i></i>
                                     </span>
                                 </div>
@@ -68,41 +68,26 @@
                                     <div class="chats" >
                                      @if(count($chats)>0)
                                        @foreach($chats as $c)
-                                          @if($c->uId === auth()->user()->id)
+                                       
                                        <div class="chat">
                                             <div class="chat-avatar">
                                                <a class="avatar" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">
-                                                   <img src="{{asset('images')}}/{{auth()->user()->uImage}}" style="height:25px;width:25px;" alt="avatar" />
-                                                   <span>{{auth()->user()->name}}</span>
+                                                   <img src="{{asset('images')}}/{{$c->uImage}}" style="height:25px;width:25px;"  />
+                                                   <span>{{$c->name}}</span>
                                                </a>
                                             </div>
                                             <div class="chat-body">
                                                 <div class="chat-content" id="chat_sen_msgs">
-                                                   @if($c->chatImage) <img src="{{asset('images/groupchat')}}/{{$c->chatImage}}" style="height:105px;width:125px;" alt="avatar" />
+                                                   @if($c->chatImage) <img src="{{asset('images/groupchat')}}/{{$c->chatImage}}" style="height:105px;width:125px;"  />
                                                    @endif <p class="chat_sen_msg">{{$c->chatMessage}}</p>
                                                 </div>
                                             </div>
                                         </div>
 
-                                         @else 
+                                        
 
-                                        <div class="chat chat-left" id="left_chat_box">
-                                            <div class="chat-avatar">
-                                                <a class="avatar" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="">
-                                                  
-                                             @if($c->uImage)       <img src="{{asset('images')}}/{{$c->uImage}}" style="height:25px;width:25px; margin:2px" alt="avatar" />
-                                                @endif   
-                                                @if($c->name)    <span>{{$c->name}}</span>  @endif  
-                                                </a>
-                                            </div>
-                                            <div class="chat-body">
-                                                <div class="chat-content" id="chat_rec_msgs">
-                                                @if($c->chatImage)    <img src="{{asset('images/groupchat')}}/{{$c->chatImage}}" style="height:105px;width:125px;" alt="avatar" />
-                                                  @endif  <p class="chat_rec_msg">{{$c->chatMessage}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endif
+                                        
+                                      
                                        @endforeach
                                  
                                      @endif
@@ -122,7 +107,7 @@
                                 <input type="hidden" name="chat_sen_id" value="{{session('user_id')}}">
                                 <input type="hidden" name="sgid" value="{{session('sgid')}}">
                                     <div class="form-control-position control-position-right">
-                                       <i><imgc class="fl" src="{{asset('images')}}/attach.png" /></i>
+                                       <i><img class="fl" src="{{asset('images')}}/attach.png" /></i>
                                         <input type="file" name="cimage" id="cimage">
                                        
                                     </div>
