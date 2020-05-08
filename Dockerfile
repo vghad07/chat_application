@@ -10,6 +10,4 @@ RUN php composer-setup.php --install-dir=. --filename=composer
 RUN mv composer /usr/local/bin/
 COPY ./chat_application /var/www/html/
 WORKDIR /var/www/html/chat_application/
-CMD php artisan migrate
-CMD php artisan optimize:clear
 EXPOSE 80
