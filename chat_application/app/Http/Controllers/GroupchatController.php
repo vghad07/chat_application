@@ -123,7 +123,7 @@ public function index(){
         $groupUsers=[];
        
          $cns = 0;
-        $groupUsers =  DB::select('select tgc.*,tgu.uId,u.id,u.name,u.uImage from tbl_group_user tgu  inner join tbl_group_chat tgc on(tgc.gId=tgu.gId) inner join users u on u.id = tgc.uId where tgc.gId='.$receiver.'  Group by tgc.gcId '); 
+        $groupUsers = $chats = DB::select('select tgc.*,tgu.uId,u.id,u.name,u.uImage from tbl_group_user tgu  inner join tbl_group_chat tgc on(tgc.gId=tgu.gId) inner join users u on u.id = tgc.uId where tgc.gId='.$receiver.'  Group by tgc.gcId '); 
          $cns = count($groupUsers);
        
         if($cns > 0 ){
