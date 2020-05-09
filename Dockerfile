@@ -9,6 +9,12 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=. --filename=composer
 RUN mv composer /usr/local/bin/
 COPY ./chat_application /var/www/html/
+#Allocate memory limit to composer"
+RUN php -d memory_limit=-1 /usr/local/bin/composer install
+#Clear cache memory
+RUN php artisan optimize:clear
+#Migrate Database
+RUN php artisan migrate
 #change uid and gid of apache to docker user uid/gid
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 #change the web_root to laravel /var/www/html/public folder
