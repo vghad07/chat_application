@@ -14,7 +14,7 @@ RUN php -d memory_limit=-1 /usr/local/bin/composer install
 #Clear cache memory
 RUN php artisan optimize:clear
 #Migrate Database
-RUN php artisan migrate
+#RUN php artisan migrate
 #change uid and gid of apache to docker user uid/gid
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 #change the web_root to laravel /var/www/html/public folder
